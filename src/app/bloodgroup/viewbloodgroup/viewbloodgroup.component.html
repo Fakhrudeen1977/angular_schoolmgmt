@@ -1,0 +1,36 @@
+
+<div>
+
+<mat-paginator color="accent" [pageSizeOptions]= "pageSizes"> </mat-paginator>
+  <table mat-table [dataSource]="dataSource" matSort>
+  
+ <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef> {{column|uppercase}} </th>
+             
+      <!-- Cell -->
+    <td mat-cell *matCellDef="let element">
+      <!-- Conditionally render content -->
+      <ng-container [ngSwitch]="column">
+        <!-- If it's the action column, show buttons -->
+        <ng-container *ngSwitchCase="'Actions'">
+          <button mat-button color="primary" (click)="onEdit(element)"><mat-icon>edit</mat-icon></button>
+          <button mat-button color="warn" (click)="onDelete(element)"><mat-icon>delete</mat-icon></button>
+        </ng-container>
+
+        <!-- Otherwise, show property -->
+        <ng-container *ngSwitchDefault>
+          {{ element[column] }}
+        </ng-container>
+      </ng-container>
+    </td>
+       
+</ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  
+
+</div> 

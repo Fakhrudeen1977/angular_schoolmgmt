@@ -1,0 +1,216 @@
+
+<mat-card>
+   <form [formGroup]="registerForm">
+  <mat-card-header>
+    <mat-card-title >Registration</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+   
+      <mat-form-field class="form-field">
+        <mat-label> First Name
+        </mat-label>
+        <input matInput formControlName="firstName">
+        <mat-error *ngIf="firstName.touched && firstName.invalid">
+          <span *ngIf="firstName.errors.required">First Name is required.</span>
+
+        </mat-error>
+
+         <mat-error *ngIf="firstName?.hasError('pattern')">
+           First Name  should be only letter.
+        </mat-error>  
+
+
+           <mat-error *ngIf="firstName?.hasError('minlength')">
+           First Name  should be minimum 3 characters.
+        </mat-error>    
+
+            <mat-error *ngIf="firstName?.hasError('maxlength')">
+           First Name  should be maximm 30 characters.
+        </mat-error>  
+
+         
+
+      </mat-form-field>
+
+
+
+      <mat-form-field class="form-field">
+        <mat-label> Last Name
+        </mat-label>
+        <input matInput formControlName="lastName">
+        <mat-error *ngIf="lastName.touched && lastName.invalid">
+          <span *ngIf="lastName.errors.required">Last Name is required.</span>
+
+        </mat-error>
+
+         <mat-error *ngIf="lastName?.hasError('pattern')">
+           Last Name  should be only letter.
+        </mat-error>  
+
+            <mat-error *ngIf="lastName?.hasError('minlength')">
+           LastName  should be minimum 3 characters.
+        </mat-error>    
+
+            <mat-error *ngIf="firstName?.hasError('maxlength')">
+           LastName  should be maximm 30 characters.
+        </mat-error>    
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label> Civil Id
+        </mat-label>
+        <input matInput formControlName="civilId"   (keypress)="keyPress($event)">
+        <mat-error *ngIf="civilId.touched && civilId.invalid">
+          <span *ngIf="civilId.errors.required">Civil Id  is required.</span>
+
+        </mat-error>
+         <mat-error *ngIf="civilId?.hasError('pattern')">
+           Civil Id  should be only number.
+        </mat-error> 
+
+         <mat-error *ngIf="civilId?.hasError('minlength')">
+           Civil Id  should be minimum 9 characters.
+        </mat-error>   
+
+         <mat-error *ngIf="civilId?.hasError('maxlength')">
+           Civil Id  should be maximm 9 characters.
+        </mat-error>    
+  
+
+      </mat-form-field>
+
+      <mat-form-field class="form-field"  color="primary">
+        <mat-label> Date of Birth
+        </mat-label>
+        <input matInput [matDatepicker]="birthDate" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
+        <mat-datepicker #birthDate></mat-datepicker>
+      
+        <mat-error *ngIf="dateOfBirth.touched && dateOfBirth.invalid">
+          <span *ngIf="dateOfBirth.errors.required">Date of Birth  is required.</span>
+
+        </mat-error>
+      </mat-form-field>
+
+
+      <div class="form-field">
+        <mat-radio-group color="accent" aria-label="Select an option" labelPosition="after" formControlName="gender" (change)="genderSelect($event)">
+          <mat-radio-button value="Male" >Male</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="gender.touched && gender.invalid">
+          <span *ngIf="gender.errors.required">Gender  is required.</span>
+
+        </mat-error>
+      </div>
+
+
+      <div class="form-field">
+       
+         <mat-checkbox  *ngFor="let item of LanguageArray" value="{{item.key}}" (change)="onCheckboxChange($event)">{{item.value}}</mat-checkbox>&nbsp;&nbsp;&nbsp;
+               
+        <mat-error *ngIf="languagesKnown.touched && languagesKnown.invalid">
+          <span *ngIf="languagesKnown.errors.required">At least one language must be selected.</span>
+
+        </mat-error>
+
+
+      </div>
+
+
+      <mat-form-field class="form-field">
+        <mat-label> Age
+        </mat-label>
+        <input matInput formControlName="age" type="number" > 
+        <mat-error *ngIf="age.touched && age.invalid">
+          <span *ngIf="age.errors.required">Age  is required.</span>
+
+        </mat-error>
+
+         <mat-error *ngIf="age?.hasError('min')">
+           Age  should be minimum 18 years.
+        </mat-error>  
+       
+
+         <mat-error *ngIf="age?.hasError('max')">
+        Age  should be maximum 100 years.
+        </mat-error>    
+
+
+      </mat-form-field>
+
+
+      <mat-form-field class="form-field">
+
+        <mat-label>Address: </mat-label>
+        <textarea matInput formControlName="address"></textarea>
+
+        <mat-error *ngIf="address.touched && address.invalid">
+          <span *ngIf="address.errors.required">Address  is required.</span>
+
+        </mat-error>
+      </mat-form-field>  
+  
+
+     <mat-form-field class="form-field">
+
+        <mat-label>Email: </mat-label>
+        <input matInput formControlName="email">
+
+        <mat-error *ngIf="email.touched && email.invalid">
+          <span *ngIf="email.errors.required">Email  is required.</span>
+
+        </mat-error>
+
+        
+        <mat-error *ngIf="email.touched && email.invalid">
+          <span *ngIf="email.errors.pattern">Email  is not valid.</span>
+
+        </mat-error>
+      
+       
+ 
+
+      </mat-form-field>  
+
+
+      <mat-form-field class="form-field">
+
+        <mat-label>Mobile Number: </mat-label>
+        <input type="text" matInput formControlName="mobileNumber"  (keypress)="keyPress($event)">
+
+        <mat-error *ngIf="mobileNumber.touched && mobileNumber.invalid">
+          <span *ngIf="mobileNumber.errors.required">Mobile Number  is required.</span>
+
+        </mat-error>
+          <mat-error *ngIf="mobileNumber?.hasError('pattern')">
+           Mobile Number  should be only number.
+        </mat-error>  
+
+     
+          <mat-error *ngIf="mobileNumber?.hasError('minlength')">
+           Mobile Number  should be minimum 10 characters.
+        </mat-error>  
+
+       
+
+         <mat-error *ngIf="mobileNumber?.hasError('maxlength')">
+           Mobile Number  should be maximm 10 characters.
+        </mat-error>    
+
+      </mat-form-field>  
+ 
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <div style="magin:2%; text-align:right;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid"  (click)="register()">Save</button> &nbsp;
+      <button mat-raised-button color="accent" type="button" (click)="clear()">Clear</button>
+
+
+      </div>
+  </mat-card-actions>
+      </form>
+</mat-card>
+
