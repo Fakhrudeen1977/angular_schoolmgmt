@@ -42,7 +42,7 @@ import { MasterService } from './services/master.service';
 import { SavebloodgroupComponent } from './bloodgroup/savebloodgroup/savebloodgroup.component';
 import { ViewbloodgroupComponent } from './bloodgroup/viewbloodgroup/viewbloodgroup.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { SavestudentComponent } from './student/savestudent/savestudent.component';
+
 import { MY_DATE_FORMATS } from './date-format/my-date-formats';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -50,6 +50,13 @@ import {MatNativeDateModule, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS} f
 import { JsonComponent } from './json/json.component';
 import { EditbloodgroupComponent } from './bloodgroup/editbloodgroup/editbloodgroup.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { SaveStudentComponent } from './student/save-student/Save-Student.component';
+import { ViewStudentComponent } from './student/view-student/view-student.component';
+import { UpdateStudentComponent } from './student/update-student/update-student.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { SaveClassComponent } from './classinfo/save-class/save-class.component';
+import { ViewClassComponent } from './classinfo/view-class/view-class.component';
+import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
 
 @NgModule({
   declarations: [
@@ -61,13 +68,19 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     DashboardComponent,    
     SavebloodgroupComponent,
     ViewbloodgroupComponent,
-    SavestudentComponent,
+    SaveStudentComponent,
     JsonComponent,
     EditbloodgroupComponent,
     ConfirmDialogComponent,
+    SaveStudentComponent,
+    ViewStudentComponent,
+    UpdateStudentComponent,
+    SaveClassComponent,
+    ViewClassComponent,
+    UpdateClassComponent,
 
   ],
-  entryComponents: [EditbloodgroupComponent,ConfirmDialogComponent],
+  entryComponents: [EditbloodgroupComponent,ConfirmDialogComponent,UpdateStudentComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -82,7 +95,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatSelectModule,
     MatCheckboxModule,
     MatMenuModule,
-    
+    MatGridListModule,
     MatIconModule,
     MatCardModule,
     MatSidenavModule,

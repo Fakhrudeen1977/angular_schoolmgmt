@@ -15,6 +15,8 @@ export class Student {
     imageType:string;
     imageFileName:string;
     realImage:any;
+    email:string;
+    
    
 
 }

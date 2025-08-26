@@ -26,9 +26,10 @@ export class EditbloodgroupComponent implements OnInit {
     public dialogRef: MatDialogRef<EditbloodgroupComponent>
     ) 
    {
+      this.rowData=data; 
      this.getFormGroup();    
-     this.rowData=data;       
-     this.editBloodGrpFrm.get("bloodId").setValue(this.rowData.bloodId);
+          
+     //this.editBloodGrpFrm.get("bloodId").setValue(this.rowData.bloodId);
      this.editBloodGrpFrm.get("bloodGroupName").setValue(this.rowData.bloodGroupName);
 
   } 
@@ -38,7 +39,7 @@ export class EditbloodgroupComponent implements OnInit {
 
   public getFormGroup(): void {
     this.editBloodGrpFrm = new FormGroup({
-      bloodId: new FormControl({value:"", disabled: true}),
+      bloodId: new FormControl({value:this.rowData.bloodId, disabled: true}),
       bloodGroupName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(3),CustomvalidatorService.validBloodGroup()]),
 
     });
@@ -62,12 +63,13 @@ export class EditbloodgroupComponent implements OnInit {
         console.log(data);
 
         if (data != null) {
-             this.showAlert("success","BloodGroup updated Successfully");            
+             this.showAlert("success","BloodGroup updated Successfully");       
+             this.router.navigate(["/viewbloodgroup"]);     
          
         }
-      },err => {
+      },error => {
         this.isFlag=true;
-        this.errorMessage = err.message;
+        this.errorMessage = error.error.message;
         this.showAlert("error",this.errorMessage);
         
       }
@@ -82,7 +84,7 @@ export class EditbloodgroupComponent implements OnInit {
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {
-        duration:3000, // Optional duration in milliseconds
+        duration:8000, // Optional duration in milliseconds
         horizontalPosition: 'center', // Optional horizontal position
         verticalPosition: 'top', // Optional vertical position
       });

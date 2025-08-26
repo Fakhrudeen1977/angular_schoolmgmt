@@ -6,7 +6,7 @@ import { TokenStorageService } from './services/tokenstorage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MatDialog } from '@angular/material'; 
-import { SavestudentComponent } from './student/savestudent/savestudent.component';
+import { SaveStudentComponent } from './student/save-student/Save-Student.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,7 +34,7 @@ export class AppComponent implements  OnInit{
 
    openDialog(): void { 
      
-    let dialogRef = this._dialog.open(SavestudentComponent) ;
+    let dialogRef = this._dialog.open(SaveStudentComponent) ;
      
 } 
 

@@ -1,8 +1,8 @@
 
-<mat-card class="mat-login-card" color="accent"> 
+<mat-card class="mat-blood-card" color="accent"> 
   
   <mat-card-header>
-    <mat-card-title class=" mat-login-title">Blood Group</mat-card-title>
+    <mat-card-title class=" mat-blood-title">Blood Group</mat-card-title>
   </mat-card-header>  
      
  <mat-card-content >
@@ -11,7 +11,7 @@
       <mat-form-field class="form-field">
         <mat-label> BloodGroupName
         </mat-label>
-        <input matInput formControlName="bloodGroupName" type="text">
+        <input matInput formControlName="bloodGroupName" type="text"  style="text-transform:uppercase" >
         <mat-error *ngIf="bloodGroupName?.hasError('required')">
               BloodGroup Name is required.
         </mat-error>  
@@ -22,16 +22,17 @@
           <mat-error *ngIf="bloodGroupName?.hasError('maxlength')">
            BloodGroup Name can be max 3 characters long
         </mat-error>  
-
+      
          <mat-error *ngIf="bloodGroupName?.hasError('invalidBloodGroup')">
            Invalid blood group format.
     </mat-error>
+    
 
       </mat-form-field>           
     
       <mat-card-actions>
       
-       <button type="submit" class="mat-login-button" mat-raised-button color="primary"[disabled]="!saveBloodGrpFrm.valid" (click)="saveBloodGroup()" >Save</button>
+       <button type="submit" class="mat-blood-button" mat-raised-button color="primary"[disabled]="!saveBloodGrpFrm.valid" (click)="saveBloodGroup()" >Save</button>
        
       </mat-card-actions>
     </form>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';  
+import { Observable,Subject,BehaviorSubject } from 'rxjs';  
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Json } from '../models/json.model';
 
@@ -8,12 +8,23 @@ import { Json } from '../models/json.model';
 })
 export class DataService {
 
-  constructor(private http: HttpClient) {     
+  constructor(private http: HttpClient) {   
+     
   }
+
+  private refreshNeeded=new BehaviorSubject<boolean>(false);
+  refreshNeeded$=this.refreshNeeded.asObservable();
+
+  triggerRefresh(){
+    this.refreshNeeded.next(true);
+  }
+
 
    getJsonData():Observable<any> {
       return this.http.get<any>('assets/test.json');   
     }
+
+
 
    
   

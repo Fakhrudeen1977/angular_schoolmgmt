@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+
+import { Component, OnInit, AfterViewInit, ViewChild,Input } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -7,7 +8,7 @@ import {
   Validators
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { BloodGroup } from "../../models/bloodgroup.model";
+
 import { StudentService } from "../../services/student.service";
 import { MasterService } from "../../services/master.service";
 import { Observable } from "rxjs";
@@ -17,29 +18,30 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatDialog } from '@angular/material';
-import { EditbloodgroupComponent } from '../../bloodgroup/editbloodgroup/editbloodgroup.component';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-@Component({
-  selector: "app-viewbloodgroup",
-  templateUrl: "./viewbloodgroup.component.html",
-  styleUrls: ["./viewbloodgroup.component.css"]
-})
-export class ViewbloodgroupComponent implements AfterViewInit {
 
-  @ViewChild(MatSort, { static: true })
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { Student } from "../../models/student.model";
+import { UpdateStudentComponent } from '../../student/update-student/update-student.component';
+@Component({
+  selector: 'app-view-student',
+  templateUrl: './view-student.component.html',
+  styleUrls: ['./view-student.component.css']
+})
+export class ViewStudentComponent implements  AfterViewInit  {
+
+ @ViewChild(MatSort, { static: true })
   sort: MatSort;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
-  displayedColumns: string[] = ["bloodId", "bloodGroupName","Actions"]; 
+
+  
+  displayedColumns: string[] = ["studentId", "studentName","fatherName","dateOfBirth","gender", "mobileNumber","email","contactAddress","Actions"];
  
 
-  public bloodGrpFrm: FormGroup;
   errorMessage = "";
-  bloodGroup: BloodGroup = new BloodGroup();
-  bloodGroupList: BloodGroup[] = [];
+  public students: Student[] = [];
   isFlag: boolean = false;
-
   pageSizes = [10];
   dialogRef: any;
   
@@ -48,40 +50,41 @@ export class ViewbloodgroupComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private masterService: MasterService,
+    private studentService: StudentService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
+    
+    this.getStudentList();
+  }  
+
+  ngAfterViewInit() {   
+              
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+              
+
+  }
+
+  public getStudentList(): void {
    
-    this.getBloodGroupList();
-  }
-  
-  public getBloodGroupList(): void {
-    this.masterService.getBloodGroupList().subscribe(
+    this.studentService.getStudentList().subscribe(
       data => {
-        console.log("Blood Group  List");
-        console.log(data);
-        this.bloodGroupList = data;
-        
-        this.dataSource = new MatTableDataSource(this.bloodGroupList);
-            
+        console.log("Student List ");      
+        this.students=data;         
+        console.log(this.students);  
+        this.dataSource = new MatTableDataSource(this.students);     
 
-        console.log(this.bloodGroupList);
-      },
-      error => console.log(error)
-    );
+      }, error => console.log(error));
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
- // 
+ 
  onEdit(element: any) {
    
    console.log('Edit clicked:', element.bloodId);
 
-     this.dialogRef = this.dialog.open(EditbloodgroupComponent, 
-      { data :element,height: '500px', width: '5000px', autoFocus: true });
+     this.dialogRef = this.dialog.open(UpdateStudentComponent, 
+      { data :element,height: '1000px', width: '1000px', autoFocus: true });
 
   } 
 
@@ -94,16 +97,16 @@ export class ViewbloodgroupComponent implements AfterViewInit {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result === true) {
-      this.masterService.deleteByBloodGrpId(element.bloodId).subscribe(
+      this.studentService.deleteByStudentId(element.studentId).subscribe(
       data => {
         console.log(data);
         if (data != null) {
           this.showAlert(
             "success",
-            "Blood Information has been deleted successfully"
+            "Student Detail has been deleted successfully"
           );
         }
-        this.getBloodGroupList();
+        this.getStudentList();
       },
       error => {
         this.errorMessage = error.message;
@@ -116,9 +119,10 @@ export class ViewbloodgroupComponent implements AfterViewInit {
 
     
   }
+ 
 
-  public addBloodGroup(): void {
-    this.router.navigate(["/savebloodgroup"]);
+  public addNewStudent(): void {
+    this.router.navigate(["/saveStudent"]);
   }
 
   public showAlert(message: string, action: string = "Dismiss") {

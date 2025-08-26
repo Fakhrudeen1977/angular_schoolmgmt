@@ -17,15 +17,13 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
 
-   public saveStudent(baseUrlSaving:string,file:File): Observable<any> {
-  
-     const formData: FormData  = new FormData();                
+   public saveStudent(baseUrlSaving:string,file:File): Observable<any> {    
+     const formData: FormData  = new FormData();           
       // Store form name as "file" with file data
       //formData.append("file", file);
-      formData.append("file", file);       
-      return this.http.post(baseUrlSaving, formData) ;
+      formData.append("file", file);     
+     return this.http.post(baseUrlSaving, formData) ;
  
-     
   }
 
   public updateStudent(baseUrlSaving:string,file:File): Observable<any> {    

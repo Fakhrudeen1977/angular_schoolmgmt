@@ -22,13 +22,15 @@ export class AuthService {
   constructor(private http: HttpClient) { }  
   
   public register(signup:SignupRequest): Observable<any> {
-    console.log("Before submit Singnup");
-    console.log(signup);
+   
+    
     return this.http.post<SignupRequest>(this.baseUrl+"signup", signup);
+  
      
   }
   
    public login(login:Login): Observable<any> {
+    
       return this.http.post<Login>(this.baseUrl+"login", login);
   }
 

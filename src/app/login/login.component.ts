@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   isSubmitted:boolean=false;  
  
   constructor(public router: Router, public authService: AuthService, public tokenStorage: TokenStorageService,private snackBar: MatSnackBar) {
-    console.log("Login Component Loadkibng");
+    console.log("Login Component Loading");
     this.getFormGroup();
   }
 
@@ -78,9 +78,9 @@ export class LoginComponent implements OnInit {
       },
       error => {       
         this.errorMessage = error.error.message;
+       
         this.isLoginFailed = false;
-        this.showAlert("error",this.errorMessage);
-      
+        this.showAlert("error",this.errorMessage);    
         
 
       }

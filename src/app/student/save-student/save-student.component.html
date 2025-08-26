@@ -1,0 +1,265 @@
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Student Registration Form</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form [formGroup]="saveStudentForm">
+      <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Student Name
+            </mat-label>
+            <input matInput formControlName="studentName">
+            <mat-error *ngIf="studentName.touched && studentName.invalid">
+              <span *ngIf="studentName.errors.required"> Student Name is required.</span>
+
+            </mat-error>
+          
+
+            <mat-error *ngIf="studentName?.hasError('minlength')">
+              Student Name should be minimum 6 characters.
+            </mat-error>
+
+            <mat-error *ngIf="studentName?.hasError('maxlength')">
+              Student Name should be maximm 30 characters.
+            </mat-error>
+
+               <mat-error *ngIf="studentName?.hasError('pattern')">
+              Student Name should be only letter.
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Father Name
+            </mat-label>
+            <input matInput formControlName="fatherName">
+            <mat-error *ngIf="fatherName.touched && fatherName.invalid">
+              <span *ngIf="fatherName.errors.required">Father Name is required.</span>
+
+            </mat-error>
+
+            <mat-error *ngIf="fatherName?.hasError('pattern')">
+              Father Name should be only letter.
+            </mat-error>
+
+            <mat-error *ngIf="fatherName?.hasError('minlength')">
+              Father Name should be minimum 6 characters.
+            </mat-error>
+
+            <mat-error *ngIf="fatherName?.hasError('maxlength')">
+              Father Name should be maximm 30 characters.
+            </mat-error>
+              <mat-error *ngIf="studentName?.hasError('pattern')">
+              Father Name should be only letter.
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+     <mat-grid-list cols="2" rowHeight="150px" gutterSize="15px">
+        <mat-grid-tile>
+
+           <mat-form-field class="form-field"  color="primary">
+        <mat-label> Date of Birth
+        </mat-label>
+        <input matInput [matDatepicker]="birthDate" formControlName="dateOfBirth"  (blur) = "validateDateOfBirth()">
+        <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
+        <mat-datepicker #birthDate></mat-datepicker>
+      
+        <mat-error *ngIf="dateOfBirth.touched && dateOfBirth.invalid">
+          <span *ngIf="dateOfBirth.errors.required">Date of Birth  is required.</span>
+
+        </mat-error>
+      </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <div>
+           <mat-radio-group color="accent" aria-label="Select an option" labelPosition="after" formControlName="gender" (change)="genderSelect($event)">
+          <mat-radio-button value="Male" >Male</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="gender.touched && gender.invalid">
+          <span *ngIf="gender.errors.required">Gender  is required.</span>
+
+        </mat-error>
+         </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+       <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+        <mat-grid-tile>
+          <mat-form-field class="form-field">
+        <mat-label> Select Class
+        </mat-label>
+       
+        <mat-select   formControlName="classId" (selectionChange)="getClassInfo($event)">
+            <mat-option *ngFor="let class of classDetil" [value]="class.classId" >{{class.className}}</mat-option>
+
+        </mat-select>
+        <mat-error *ngIf="classId?.hasError('required')">
+             Class Detail is required.
+        </mat-error>  
+           
+
+      </mat-form-field>  
+               
+                </mat-grid-tile>
+
+        <mat-grid-tile>
+                <mat-form-field class="form-field">
+        <mat-label> Select BloodGroup
+        </mat-label>
+       
+       
+        <mat-select   formControlName="bloodId" (selectionChange)="getBloodInfo($event)">
+            <mat-option *ngFor="let blood of bloodGrp" [value]="blood.bloodId" >{{blood.bloodGroupName}}</mat-option>
+
+        </mat-select>
+        <mat-error *ngIf="bloodId?.hasError('required')">
+             BloodGroup is required.
+        </mat-error>  
+           
+
+      </mat-form-field>  
+          
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+        <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Photo Number
+            </mat-label>
+            <input matInput formControlName="photoNumber">
+            <mat-error *ngIf="photoNumber.touched && photoNumber.invalid">
+              <span *ngIf="photoNumber.errors.required"> PhotoNumber  is required.</span>
+
+            </mat-error>
+         
+
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Mobile Number
+            </mat-label>
+            <input matInput formControlName="mobileNumber">
+            <mat-error *ngIf="mobileNumber.touched && mobileNumber.invalid">
+              <span *ngIf="mobileNumber.errors.required">Mobile Number is required.</span>
+
+            </mat-error>
+
+            
+          <mat-error *ngIf="mobileNumber?.hasError('pattern')">
+           Mobile Number  should be only number.
+        </mat-error>  
+
+     
+          <mat-error *ngIf="mobileNumber?.hasError('minlength')">
+           Mobile Number  should be minimum 10 characters.
+        </mat-error>  
+       
+
+         <mat-error *ngIf="mobileNumber?.hasError('maxlength')">
+           Mobile Number  should be maximm 10 characters.
+        </mat-error>    
+          
+            
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+
+        <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+
+        <mat-label>Address: </mat-label>
+        <textarea matInput formControlName="contactAddress"></textarea>
+
+        <mat-error *ngIf="contactAddress.touched && contactAddress.invalid">
+          <span *ngIf="contactAddress.errors.required">Address  is required.</span>
+
+        </mat-error>
+      </mat-form-field>  
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+           <mat-form-field class="form-field">
+
+        <mat-label>Email: </mat-label>
+        <input matInput formControlName="email">
+
+        <mat-error *ngIf="email.touched && email.invalid">
+          <span *ngIf="email.errors.required">Email  is required.</span>
+
+        </mat-error>
+
+        
+        <mat-error *ngIf="email.touched && email.invalid">
+          <span *ngIf="email.errors.pattern">Email  is not valid.</span>
+
+        </mat-error>     
+       
+ 
+
+      </mat-form-field>  
+        
+        </mat-grid-tile>
+      </mat-grid-list>
+
+        <mat-grid-list cols="4" rowHeight="150px">
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label>Upload Image</mat-label>
+           <input matInput>
+          <input type="file" formControlName="imageFileName" (change)="selectFile($event)" >
+       
+           <mat-error *ngIf="imageFileName.touched && imageFileName.invalid">
+          <span *ngIf="imageFileName.errors.required">Image  is required.</span>
+
+        </mat-error>         
+        
+        
+      </mat-form-field>  
+        </mat-grid-tile>
+
+        </mat-grid-list>
+
+
+
+
+
+      <mat-card-actions>
+        <div style="magin:2%; text-align:right;">
+<button mat-raised-button color="primary" type="submit" [disabled]="!saveStudentForm.valid" (click)="saveStudent()">Save</button>&nbsp;
+<button mat-raised-button color="accent" type="button" (click)="clear()">Clear</button>
+</div>
+
+</mat-card-actions>
+
+</form>
+
+</mat-card-content>
+
+</mat-card>

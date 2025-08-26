@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignupRequest } from '../models/signup';
+import { SignupRequest } from '../models/signup.model';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from '../models/role.model';
@@ -17,6 +17,8 @@ export class RegisterComponent  {
   signupFrm: FormGroup;
   signup: SignupRequest = new SignupRequest();
   roles: string[] = [];
+  splitedRoleNames: string[]=[];
+  assignedRoles: string[] = [];
   selectedRoles: Role[] = [];
   isSuccessful = false;
   isSignUpFailed = false;
@@ -62,7 +64,6 @@ export class RegisterComponent  {
     return this.signupFrm.get('role');
   }
 
-
   public getRoleList(): void {
     this.masterService.getRoleList().subscribe(
       data => {
@@ -71,35 +72,57 @@ export class RegisterComponent  {
     )
   }
 
-  public getRoles(event:any){    
-    let selectedRoleId=event.value;
-    let selectedRole=this.roleList.find(r => r.roleId===selectedRoleId);
-    console.log(selectedRoleId+" "+selectedRole);
-  }
+  public getRoles(event:any){  
+    let roleName="";
+    this.roles=[];
+    if(event.source.selected) {   
+      let roleId=event.value;  
+      roleName=event.source.triggerValue;  
+      this.roles.push(roleName);    
+        
+           
+    }             
+    
 
-  onSelectEvent($event:any, role: Role){
-    console.log(role);
-  }
+  } 
 
   public register(): void {
-    this.signup = this.signupFrm.value;
-    console.log("Register");
-  
-    this.selectedRoles=this.signupFrm.get("role").value;
-   
-   for (let i = 0; i < this.selectedRoles.length; i++) {
-        this.roles.push(this.selectedRoles[i].roleName);
-    }
-    console.log("Role length"+" "+this.roles.length);
-    this.signup.roles=this.roles;  
-    console.log("Signup Form"+" "+this.signup.roles); 
+    console.log("Register");  
+    this.signup.name=this.signupFrm.get("name").value;
+    this.signup.userName=this.signupFrm.get("userName").value;
+    this.signup.password=this.signupFrm.get("password").value;
+    this.signup.email=this.signupFrm.get("email").value;
+    //this.signup.roles=this.roles;
+    
+    
+    for (let i = 0; i < this.roles.length; i++) {
+        
+        const resultString: string = this.roles.toString();
+        this.splitedRoleNames= resultString.split(",");
+              
 
-  /* this.authService.register(this.signup).subscribe(
+    }     
+      
+    for (let i = 0; i <this.splitedRoleNames.length; i++) {
+     
+         this.assignedRoles.push(this.splitedRoleNames[i].toString().trim());
+        
+
+    }
+
+   //this.signup.roles=['Admin','User'];
+   this.signup.roles=this.assignedRoles;
+
+    console.log(this.signup);
+  
+  
+ this.authService.register(this.signup).subscribe(
       data => {
           console.log("Registration Done");          
 
           if(data!=null){
-             this.showAlert("success","Registration Saved Successfully");             
+             this.showAlert("success","Registration Saved Successfully");  
+             this.router.navigate(["/login"]);           
          
           }
 
@@ -110,7 +133,7 @@ export class RegisterComponent  {
         
       }
     );
-    */
+    
      
 
   }

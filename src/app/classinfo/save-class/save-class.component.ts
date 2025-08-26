@@ -7,15 +7,15 @@ import { ClassDetails } from '../../models/classdetail.model';
 import { BloodGroup } from '../../models/bloodgroup.model';
 import { CustomvalidatorService } from '../../services/customvalidator.service';
 @Component({
-  selector: 'app-savebloodgroup',
-  templateUrl: './savebloodgroup.component.html',
-  styleUrls: ['./savebloodgroup.component.css']
+  selector: 'app-save-class',
+  templateUrl: './save-class.component.html',
+  styleUrls: ['./save-class.component.css']
 })
-export class SavebloodgroupComponent implements OnInit {
+export class SaveClassComponent implements OnInit {
 
-  saveBloodGrpFrm: FormGroup;
+  classDetailsFrm: FormGroup;
   errorMessage = '';
-  bloodGroup: BloodGroup = new BloodGroup();
+  classDetails: ClassDetails = new ClassDetails();
   isFlag:boolean=false;
   isSubmitted:boolean=false;
  
@@ -26,15 +26,10 @@ export class SavebloodgroupComponent implements OnInit {
  
 
   public getFormGroup(): void {
-    this.saveBloodGrpFrm = new FormGroup({
-      bloodGroupName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(3),CustomvalidatorService.validBloodGroup()]),
-
-      
-
+    this.classDetailsFrm = new FormGroup({
+      className: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(6)]),
      
-    });
-
-    
+    });    
 
   }  
 
@@ -42,21 +37,21 @@ export class SavebloodgroupComponent implements OnInit {
         
   }
 
-  public get bloodGroupName():any {
-    return this.saveBloodGrpFrm.get('bloodGroupName');
+  public get className():any {
+    return this.classDetailsFrm.get('className');
   }
 
-  public saveBloodGroup(): void {    
+  public saveClassDetail(): void {    
     this.isSubmitted=true;    
-    this.bloodGroup = this.saveBloodGrpFrm.value;
-    this.masterService.saveBloodGroup(this.bloodGroup).subscribe(
+    this.classDetails = this.classDetailsFrm.value;
+    this.masterService.saveClassDetail(this.classDetails).subscribe(
       data => {
-        console.log("After SaveBloodGroup");
+        console.log("Save Class Details");
         console.log(data);
 
         if (data != null) {
-             this.showAlert("success","BloodGroup Saved Successfully");
-             this.router.navigate(["/viewbloodgroup"]);
+             this.showAlert("success","ClassDetail Saved Successfully");
+              this.router.navigate(["/viewClass"]);
          
         }
 
@@ -76,6 +71,7 @@ export class SavebloodgroupComponent implements OnInit {
         verticalPosition: 'top', // Optional vertical position
       });
    }
+
 
 
 }

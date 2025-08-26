@@ -48,19 +48,39 @@
                     <mat-icon>student</mat-icon><span>Student</span>
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item routerLink="#">
-                        New Student
+                    <a mat-list-item routerLink="/saveStudent">
+
+                        Add Student
                     </a>
                     <a mat-list-item routerLink="#">
-                        Search Registration
+                        Search Student
                     </a>
-                     <a mat-list-item routerLink="#">
+                     <a mat-list-item routerLink="/viewStudent">
                         View Student
                     </a>
                    
                 </mat-nav-list>
             </mat-expansion-panel>
 
+
+           
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>class</mat-icon><span>ClassDetail</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/saveClass">
+                        Add Class
+                    </a>
+                    <a mat-list-item routerLink="#">
+                        Search Class
+                    </a>
+                     <a mat-list-item routerLink="/viewClass">
+                        View Class
+                    </a>
+                   
+                </mat-nav-list>
+            </mat-expansion-panel>
 
 
             <mat-expansion-panel [class.mat-elevation-z0]="true">
