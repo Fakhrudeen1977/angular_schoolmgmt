@@ -1,14 +1,16 @@
 
 <div class="container">
-   <h3 align="center" color="blue">CLASS DETAILS</h3>
+   <h3 align="center" text-color="blue">CLASS DETAILS</h3>
   
   <div >
-      <a href="#" routerLink="/saveClass">Create New Class</a>
-     <button type="button" class="mat-class-button"  mat-raised-button color="primary" (click)="addClassDetail" >Create New Class</button>
+     
+     <button type="button" class="mat-class-button"  mat-raised-button color="accent" (click)="addClassDetail()" >Add New Class</button>
 
     </div>
+
   
-<mat-paginator color="accent" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
+<mat-paginator color="accent" [pageSizeOptions]="pageSizes" [pageSize]="10" [length]="totalElements"
+        (page)="nextPage($event)" > </mat-paginator>
   <table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="classId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-class">Class Id</th>

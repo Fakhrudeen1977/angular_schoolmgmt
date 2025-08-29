@@ -35,6 +35,8 @@ export class SaveStudentComponent {
   isSubmitted:boolean = false;
   baseUrl:string;
   emailPattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
+  className:any;
+  bloodGroupName
   constructor(
     private router: Router,
     private studentService: StudentService,
@@ -135,7 +137,8 @@ export class SaveStudentComponent {
     this.masterService.getClassDetailList().subscribe(
       data => {
         console.log(data);
-        this.classDetil = data;
+        this.classDetil = data['content'];
+        
       },
       error => console.log(error)
     );
@@ -143,25 +146,27 @@ export class SaveStudentComponent {
 
   public genderSelect($event:any) {
    
-     console.log($event.source.value);     
+     console.log($event.source.value);   
+       
      this.saveStudentForm.get("gender").setValue($event.source.value);
   }
 
     public getClassInfo($event:any) {   
-     console.log($event.source.value);     
+     console.log($event.source.value); 
+     this.className=$event.source.triggerValue;
+    
      this.saveStudentForm.get("classId").setValue($event.source.value);
   }
 
     public getBloodInfo($event:any) {   
     console.log($event.source.value);
-    
+    this.bloodGroupName=$event.source.triggerValue;
      this.saveStudentForm.get("bloodId").setValue($event.source.value);
   }
 
   
   public saveStudent(): void {
-    let dateOfBirth = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy");  
-    
+    let dateOfBirth = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy");      
    
     this.isSubmitted  =true;   
     this.baseUrl = "http://localhost:8000/schoolmanagement/student/saveStudent?studentName="+this.saveStudentForm.get("studentName").value+
@@ -169,14 +174,16 @@ export class SaveStudentComponent {
                                                                    "&gender="+this.saveStudentForm.get("gender").value+                                                                                                                                   
                                                                    //"&dateOfBirth="+this.saveStudentForm.get("dateOfBirth").value+
                                                                    "&dateOfBirth="+dateOfBirth+
-                                                                   "&classId="+ this.saveStudentForm.get("classId").value+                                                                  
-                                                                   "&bloodId="+this.saveStudentForm.get("bloodId").value+                                                     
+                                                                   "&classId="+ this.saveStudentForm.get("classId").value+   
+                                                                   "&className="+this.className+                                                          
+                                                                   "&bloodId="+this.saveStudentForm.get("bloodId").value+   
+                                                                   "&bloodGroupName="+this.bloodGroupName+                                                                 
                                                                    "&mobileNumber="+this.saveStudentForm.get("mobileNumber").value+
                                                                    "&contactAddress="+this.saveStudentForm.get("contactAddress").value+  
                                                                    "&email="+this.saveStudentForm.get("email").value+            
                                                                    "&photoNumber="+this.saveStudentForm.get("photoNumber").value;
 
-    //alert(this.baseUrl);                                                               
+                                                                 
           
 
     this.studentService.saveStudent(this.baseUrl,this.selectedFile).subscribe(

@@ -36,6 +36,9 @@ export class UpdateStudentComponent implements OnInit {
   baseUrl:string;
   emailPattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
   rowData:any;
+  className:any;
+  bloodGroupName:any;
+
   
   constructor(
     private router: Router,
@@ -175,7 +178,7 @@ export class UpdateStudentComponent implements OnInit {
     this.masterService.getClassDetailList().subscribe(
       data => {
         console.log(data);
-        this.classDetil = data;
+         this.classDetil = data['content'];
       },
       error => console.log(error)
     );
@@ -183,18 +186,21 @@ export class UpdateStudentComponent implements OnInit {
 
   public genderSelect($event:any) {
    
-     console.log($event.source.value);     
+     console.log($event.source.value);   
+       
      this.updateStudentForm.get("gender").setValue($event.source.value);
   }
 
     public getClassInfo($event:any) {   
-     console.log($event.source.value);     
+     console.log($event.source.value); 
+     this.className=$event.source.triggerValue;
+    
      this.updateStudentForm.get("classId").setValue($event.source.value);
   }
 
     public getBloodInfo($event:any) {   
     console.log($event.source.value);
-    
+    this.bloodGroupName=$event.source.triggerValue;
      this.updateStudentForm.get("bloodId").setValue($event.source.value);
   }
 
@@ -210,11 +216,12 @@ export class UpdateStudentComponent implements OnInit {
                                                                     "&studentName="+this.updateStudentForm.get("studentName").value+
                                                                   "&fatherName="+this.updateStudentForm.get("fatherName").value+
                                                                    "&gender="+this.updateStudentForm.get("gender").value+                                                                                                                                   
-                                                                   //"&dateOfBirth="+this.updateStudentForm.get("dateOfBirth").value+
-                                                                   "&dateOfBirth="+dateOfBirth+
-                                                                    "&dateOfBirth="+this.updateStudentForm.get("dateOfBirth").value+
-                                                                   "&classId="+ this.updateStudentForm.get("classId").value+                                                                  
-                                                                   "&bloodId="+this.updateStudentForm.get("bloodId").value+                                                     
+                                                                    "&dateOfBirth="+dateOfBirth+
+                                                                   // "&dateOfBirth="+this.updateStudentForm.get("dateOfBirth").value+
+                                                                   "&classId="+ this.updateStudentForm.get("classId").value+  
+                                                                   "&className="+this.className+                                                                    
+                                                                   "&bloodId="+this.updateStudentForm.get("bloodId").value+   
+                                                                    "&bloodGroupName="+this.bloodGroupName+                                                    
                                                                    "&mobileNumber="+this.updateStudentForm.get("mobileNumber").value+
                                                                    "&contactAddress="+this.updateStudentForm.get("contactAddress").value+  
                                                                    "&email="+this.updateStudentForm.get("email").value+            

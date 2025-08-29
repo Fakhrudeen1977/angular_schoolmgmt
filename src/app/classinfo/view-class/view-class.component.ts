@@ -38,32 +38,17 @@ export class ViewClassComponent implements  OnInit   {
   displayedColumns: string[] = ["classId", "className","Actions"]; 
    
   errorMessage = "";
- 
+  
+  isLoading = false;
+  request = {};
   isFlag: boolean = false;
-  pageSizes = [10];
+  pageSizes = [5,10,25,100];
   dialogRef: any;
   totalElements: number = 0;
+  
   classDetails: ClassDetails = new ClassDetails();  
   classDetailList:ClassDetails[]=[];
-
-   ngOnInit() {
-       
-        this.dataService.refreshNeeded$.subscribe(() => {
-          //this.getClassDetailList();
-          this.getClassDetailList({ page: "0", size: "5" });
-
-        });
-  }
-
-
-   
-    nextPage(event: PageEvent) {
-       const request = {};
-        request['page'] = event.pageIndex.toString();
-        request['size'] = event.pageSize.toString();
-        this.getClassDetailList(request);
-    }
-       
+  
     
   constructor(
     private router: Router,
@@ -72,32 +57,57 @@ export class ViewClassComponent implements  OnInit   {
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
   
-    //this.getClassDetailList(request);
+     this.getClassDetailList();  
   }
 
-  
+   ngOnInit() {       
+        this.dataService.refreshNeeded$.subscribe(() => {
+         // this.getClassDetailListPagination({ pageNo: "0", perPage: "48" }); 
 
-  public getClassDetailList(request): void {
+          this.getClassDetailList();             
 
-    this.masterService.getClassDetailList().subscribe(
+        });
+  }
+      
+
+  /*public getClassDetailListPagination(request): void {
+    this.isLoading = true;
+    this.masterService.getClassDetailListPage(request).subscribe(
       data => {
         console.log("ClassDetails  List");
         console.log(data);
-        this.classDetailList=data;
-         this.totalElements = data;
+        this.classDetailList=data['content'];
+         this.totalElements = data['totalElements'];
+         this.isLoading = false;
+         this.dataSource = new MatTableDataSource(this.classDetailList);
+       
+      }, error => console.log(error));
+  }*/
+
+
+  public getClassDetailList(): void {
+  
+    this.isLoading = true;
+    this.masterService.getClassDetailListPage({ pageNo: "0", perPage: "48" }).subscribe(
+      data => {
+        console.log("ClassDetails  List");
+        console.log(data);
+        this.classDetailList=data['content'];
+         this.totalElements = data['totalElements'];
+         this.isLoading = false;
          this.dataSource = new MatTableDataSource(this.classDetailList);
        
       }, error => console.log(error));
   }
-
  
  
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+nextPage(event: PageEvent) {  
+   this.request['pageNo'] = event.pageIndex.toString();
+   this.request['perPage'] = event.pageSize.toString();
+ 
+   //this.getClassDetailListPagination(this.request);   
   }
-
+  
  
  onEdit(element: any) {
    
@@ -127,7 +137,7 @@ export class ViewClassComponent implements  OnInit   {
             "Class Detail Information has been deleted successfully"
           );
         }
-        // this.getClassDetailList();
+         this.getClassDetailList();
       },
       error => {
         this.errorMessage = error.message;
