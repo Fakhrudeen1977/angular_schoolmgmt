@@ -67,7 +67,7 @@ export class UpdateClassComponent  {
 
         if (data != null) {
              this.showAlert("success","Class Detail updated Successfully");   
-            //this.router.navigate(["/viewClass"]);     
+            
             this.dataService.triggerRefresh();
             
          

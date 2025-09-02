@@ -14,6 +14,7 @@ import { MasterService } from "../../services/master.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClassDetails } from "../../models/classdetail.model";
 import { DatePipe } from "@angular/common";
+import { DataService } from '../../services/data.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-update-student',
@@ -39,11 +40,13 @@ export class UpdateStudentComponent implements OnInit {
   className:any;
   bloodGroupName:any;
 
+  isEventAction:boolean=false;
   
   constructor(
     private router: Router,
     private studentService: StudentService,
     private masterService: MasterService,
+    private dataService:DataService,
     private _dataPipe: DatePipe,private snackBar: MatSnackBar,
     @Inject( MAT_DIALOG_DATA) public data:any,
     public dialogRef: MatDialogRef<UpdateStudentComponent>
@@ -142,7 +145,7 @@ export class UpdateStudentComponent implements OnInit {
   }
 
    public getRowData(rowData:any):void{
-     
+       
      this.updateStudentForm.get("studentId").setValue(this.rowData.studentId);    
      this.updateStudentForm.get("studentName").setValue(this.rowData.studentName);
      this.updateStudentForm.get("fatherName").setValue(this.rowData.fatherName);
@@ -184,24 +187,50 @@ export class UpdateStudentComponent implements OnInit {
     );
   }
 
-  public genderSelect($event:any) {
+  public genderSelect(value:any) {
    
-     console.log($event.source.value);   
-       
-     this.updateStudentForm.get("gender").setValue($event.source.value);
+     console.log(value);  
+     this.updateStudentForm.get("gender").setValue(value);
+     
   }
 
-    public getClassInfo($event:any) {   
-     console.log($event.source.value); 
-     this.className=$event.source.triggerValue;
+    public getClassInfo(event:any) {  
+     this.isEventAction=true;
     
-     this.updateStudentForm.get("classId").setValue($event.source.value);
+     let selectedClassId=event.value;   
+     let selectedClass; 
+     this.updateStudentForm.get("classId").setValue(event.value);  
+
+   
+      if(event.source.selected){
+         
+          this.className= event.source.selected.viewValue;
+         
+     }
+    
+     return this.className;
+       
+     
+     
   }
 
-    public getBloodInfo($event:any) {   
-    console.log($event.source.value);
-    this.bloodGroupName=$event.source.triggerValue;
-     this.updateStudentForm.get("bloodId").setValue($event.source.value);
+    public getBloodInfo(event:any){ 
+     this.isEventAction=true;
+    
+     let selectedBloodId=event.value;  
+     let selectedBlood;  
+     this.updateStudentForm.get("bloodId").setValue(event.value);
+    
+      if(event.source.selected){
+         
+          this.bloodGroupName= event.source.selected.viewValue;
+         
+         
+     }
+     
+    
+    return this.bloodGroupName;
+   
   }
 
   
@@ -209,26 +238,31 @@ export class UpdateStudentComponent implements OnInit {
   
   public saveStudent(): void {
     let dateOfBirth = this._dataPipe.transform(this.updateStudentForm.get("dateOfBirth").value, "dd/MM/yyyy");  
-      
-   
-    this.isSubmitted  =true;   
+    
+    this.isSubmitted  =true;  
+    
+    if(this.isEventAction==false){
+      this.getBloodGroupNameWithoutEvent();
+      this.getClassNameWithoutEvent();
+    }   
+
+
     this.baseUrl = "http://localhost:8000/schoolmanagement/student/updateStudent?studentId="+this.updateStudentForm.get("studentId").value+
                                                                     "&studentName="+this.updateStudentForm.get("studentName").value+
                                                                   "&fatherName="+this.updateStudentForm.get("fatherName").value+
                                                                    "&gender="+this.updateStudentForm.get("gender").value+                                                                                                                                   
                                                                     "&dateOfBirth="+dateOfBirth+
-                                                                   // "&dateOfBirth="+this.updateStudentForm.get("dateOfBirth").value+
-                                                                   "&classId="+ this.updateStudentForm.get("classId").value+  
+                                                                   "&classId="+ this.updateStudentForm.get("classId").value+                                                                    
                                                                    "&className="+this.className+                                                                    
                                                                    "&bloodId="+this.updateStudentForm.get("bloodId").value+   
-                                                                    "&bloodGroupName="+this.bloodGroupName+                                                    
-                                                                   "&mobileNumber="+this.updateStudentForm.get("mobileNumber").value+
+                                                                   "&bloodGroupName="+this.bloodGroupName+   
+                                                                    "&mobileNumber="+this.updateStudentForm.get("mobileNumber").value+
                                                                    "&contactAddress="+this.updateStudentForm.get("contactAddress").value+  
                                                                    "&email="+this.updateStudentForm.get("email").value+            
                                                                    "&photoNumber="+this.updateStudentForm.get("photoNumber").value;
 
                                                                
-          
+     alert("Base Url"+" "+this.baseUrl)     ;
 
     this.studentService.saveStudent(this.baseUrl,this.selectedFile).subscribe(
       data => {
@@ -238,7 +272,8 @@ export class UpdateStudentComponent implements OnInit {
 
          if (data != null) {
              this.showAlert("success","Student Details Updated Successfully");
-             this.router.navigate(["/viewStudent"]);
+            
+            
          
         }
 
@@ -251,6 +286,25 @@ export class UpdateStudentComponent implements OnInit {
     );
      
     }
+
+
+   public getClassNameWithoutEvent():any{    
+     let getClassObj=this.classDetil.find(c=>c.classId=== this.updateStudentForm.get("classId").value);   
+     this.className=getClassObj.className;        
+     return this.className;     
+
+   }
+
+
+ public getBloodGroupNameWithoutEvent():any{
+      let getBloodObject=this.bloodGrp.find(c=>c.bloodId=== this.updateStudentForm.get("bloodId").value);    
+     this.bloodGroupName=getBloodObject.bloodGroupName;     
+     this.bloodGroupName;    
+
+   }
+
+
+
 
      public validateDateOfBirth():void{
 
@@ -277,16 +331,17 @@ export class UpdateStudentComponent implements OnInit {
    public closeDialog(){    
     this.dialogRef.close();
     this.router.navigate(["/viewStudent"]);
+    this.dataService.triggerRefresh();
      
   }
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {
-        duration:5000, // Optional duration in milliseconds
+        duration:3000, // Optional duration in milliseconds
         horizontalPosition: 'center', // Optional horizontal position
         verticalPosition: 'top', // Optional vertical position
       });
-
+        this.closeDialog();
      
    }
 

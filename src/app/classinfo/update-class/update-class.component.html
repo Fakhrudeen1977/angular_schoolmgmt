@@ -2,6 +2,8 @@
   
   <mat-card-header>
     <mat-card-title class=" mat-login-title">Class Detail</mat-card-title>
+     <button mat-button  class="close-button" [mat-dialog-close]="true" color="accent" (click)="closeDialog()"><mat-icon>close</mat-icon> </button>
+    
   </mat-card-header>  
      
  <mat-card-content >
@@ -34,7 +36,12 @@
       
        <button type="submit" mat-raised-button color="primary"[disabled]="!updateClassFrm.valid" (click)="saveClass()" >Save</button>
        
-        <button mat-button mat-raised-button color="accent" (click)="closeDialog()">Close</button>
+       
+        
+        
+   
+
+
       </mat-card-actions>
     </form>
 

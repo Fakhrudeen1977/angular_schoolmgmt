@@ -76,6 +76,12 @@
 }
 
 
+.mat-class-student-add-button {
+  width: 25%;
+}
+
+
+
 /*Login Screent End*/
 
 mat-card {
@@ -130,6 +136,23 @@ mat-sidenav {
   color: blue;
   font-size: 20px;
   
+}
+
+.column-small-student{
+  width:1000px;
+  color: blue;
+  font-size: 20px;
+    
+}
+
+
+.close-button{
+  position: right;
+    top: 1px;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 24px;
 }
 
 

@@ -36,7 +36,7 @@ export class SaveStudentComponent {
   baseUrl:string;
   emailPattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
   className:any;
-  bloodGroupName
+  bloodGroupName:any;
   constructor(
     private router: Router,
     private studentService: StudentService,
@@ -198,9 +198,10 @@ export class SaveStudentComponent {
          
         }
 
-      },err => {
+      },error => {
         this.isFlag=true;
-        this.errorMessage = err.message;
+        console.log(error);
+        this.errorMessage = error.error.message
         this.showAlert("error",this.errorMessage);
         
       }

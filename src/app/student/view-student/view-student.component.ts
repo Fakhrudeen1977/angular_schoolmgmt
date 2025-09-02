@@ -22,12 +22,13 @@ import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Student } from "../../models/student.model";
 import { UpdateStudentComponent } from '../../student/update-student/update-student.component';
+import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-view-student',
   templateUrl: './view-student.component.html',
   styleUrls: ['./view-student.component.css']
 })
-export class ViewStudentComponent implements  AfterViewInit  {
+export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
 
  @ViewChild(MatSort, { static: true })
   sort: MatSort;
@@ -36,26 +37,32 @@ export class ViewStudentComponent implements  AfterViewInit  {
   paginator: MatPaginator;
 
   
-  displayedColumns: string[] = ["studentId", "studentName","fatherName","dateOfBirth","gender", "mobileNumber","email","contactAddress","Actions"];
+  displayedColumns: string[] = ["studentId", "studentName","fatherName","dateOfBirth","gender", "className","bloodGroupName","mobileNumber","email","contactAddress","Actions"];
  
-
   errorMessage = "";
   public students: Student[] = [];
   isFlag: boolean = false;
   pageSizes = [10];
   dialogRef: any;
   
-  public updateBloodGrpForm: FormGroup;
-
   constructor(
     private router: Router,
     private masterService: MasterService,
     private studentService: StudentService,
+    private dataService: DataService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
     
     this.getStudentList();
   }  
+
+   ngOnInit() {       
+        this.dataService.refreshNeeded$.subscribe(() => {
+        
+         this.getStudentList();      
+
+        });
+  }
 
   ngAfterViewInit() {   
               
@@ -81,7 +88,7 @@ export class ViewStudentComponent implements  AfterViewInit  {
  
  onEdit(element: any) {
    
-   console.log('Edit clicked:', element.bloodId);
+   console.log('Edit clicked:', element.studentId);
 
      this.dialogRef = this.dialog.open(UpdateStudentComponent, 
       { data :element,height: '1000px', width: '1000px', autoFocus: true });
@@ -121,7 +128,7 @@ export class ViewStudentComponent implements  AfterViewInit  {
   }
  
 
-  public addNewStudent(): void {
+  public addStudent(): void {
     this.router.navigate(["/saveStudent"]);
   }
 
