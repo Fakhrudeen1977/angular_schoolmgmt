@@ -35,16 +35,14 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
-
   
-  displayedColumns: string[] = ["studentId", "studentName","fatherName","dateOfBirth","gender", "className","bloodGroupName","mobileNumber","email","contactAddress","Actions"];
+  displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","aadharCardNumber","email","contactAddress","Actions"];
  
   errorMessage = "";
   public students: Student[] = [];
   isFlag: boolean = false;
   pageSizes = [10];
-  dialogRef: any;
-  
+  dialogRef: any;  
   constructor(
     private router: Router,
     private masterService: MasterService,
@@ -57,18 +55,15 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
   }  
 
    ngOnInit() {       
-        this.dataService.refreshNeeded$.subscribe(() => {
-        
+        this.dataService.refreshNeeded$.subscribe(() => {        
          this.getStudentList();      
 
         });
   }
 
-  ngAfterViewInit() {   
-              
+  ngAfterViewInit() {                 
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-              
+            this.dataSource.paginator = this.paginator;             
 
   }
 
@@ -122,9 +117,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
       }
     );
     }
-  });
-
-    
+  });    
   }
  
 

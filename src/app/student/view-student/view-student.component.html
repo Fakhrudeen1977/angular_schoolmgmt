@@ -27,6 +27,11 @@
     <td mat-cell *matCellDef="let element">{{ element.fatherName }}</td>
   </ng-container>
 
+  <ng-container matColumnDef="motherName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Mother Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.motherName }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="dateOfBirth">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">DOB</th>
     <td mat-cell *matCellDef="let element">{{ element.dateOfBirth |date: 'dd/MM/yyyy' }}</td>
@@ -46,13 +51,27 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Blood Group</th>
     <td mat-cell *matCellDef="let element">{{ element.bloodGroupName }}</td>
   </ng-container>
-
-
  
 
-<ng-container matColumnDef="mobileNumber">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Mobile Number</th>
-    <td mat-cell *matCellDef="let element">{{ element.mobileNumber }}</td>
+<ng-container matColumnDef="fatherMobileNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">FatherMobile Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.fatherMobileNumber }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="motherMobileNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">MatherMobile Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.motherMobileNumber }}</td>
+  </ng-container>
+
+ <ng-container matColumnDef="religionName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Religion</th>
+    <td mat-cell *matCellDef="let element">{{ element.religionName }}</td>
+  </ng-container>
+
+
+<ng-container matColumnDef="aadharCardNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">AadharNo</th>
+    <td mat-cell *matCellDef="let element">{{ element.aadharCardNumber }}</td>
   </ng-container>
 
 

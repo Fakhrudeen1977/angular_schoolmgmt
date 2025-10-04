@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpResponse,HttpParams } from '@angular/commo
 import { Login } from '../models/login.model';
 import { ClassDetails } from '../models/classdetail.model';
 import { BloodGroup } from '../models/bloodgroup.model';
+import { Religion } from "../models/religion.model";
 import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class MasterService {
   }
    public getBloodGroupList(): Observable<any> {    
     return this.http.get<BloodGroup>(this.baseUrl+"getBloodGroupList");     
+  } 
+
+   public getReligionList(): Observable<any> {    
+    return this.http.get<Religion>(this.baseUrl+"getReligionList");     
   } 
 
   public getBloodGroupById(bloodGroupId:any): Observable<any> {   

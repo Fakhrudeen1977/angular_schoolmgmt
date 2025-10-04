@@ -13,6 +13,7 @@ import { StudentService } from "../../services/student.service";
 import { MasterService } from "../../services/master.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClassDetails } from "../../models/classdetail.model";
+import { Religion } from "../../models/religion.model";
 import { DatePipe } from "@angular/common";
 
 @Component({
@@ -27,6 +28,7 @@ export class SaveStudentComponent {
   bloodGrp: BloodGroup[] = [];
   classDetail: ClassDetails;
   classDetil: ClassDetails[] = [];
+  religionList: Religion[]=[];
   selectedFiles: File;
   currentFileUpload: File;
   selectedFile: File;
@@ -36,6 +38,7 @@ export class SaveStudentComponent {
   baseUrl:string;
   emailPattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
   className:any;
+  religionName:any;
   bloodGroupName:any;
   constructor(
     private router: Router,
@@ -47,33 +50,52 @@ export class SaveStudentComponent {
     this.getFormGroup();
     this.getBloodGroupList();
     this.getClassDetailList();
+    this.getReligionList();
   }
 
   public getFormGroup(): void {
     this.saveStudentForm = new FormGroup({
       studentName: new FormControl("", [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(2),
         Validators.maxLength(30),
         Validators.pattern("^[a-zA-Z s.]*$")
       ]),
       fatherName: new FormControl("", [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(2),
         Validators.maxLength(30),
         Validators.pattern("^[a-zA-Z s.]*$")
       ]),
+     motherName: new FormControl("", [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30),
+        Validators.pattern("^[a-zA-Z s.]*$")
+      ]),
+
       gender: new FormControl("", [Validators.required]),
+      religionId:new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
       classId: new FormControl("", [Validators.required]),
+     
       bloodId: new FormControl("", [Validators.required]),
-      mobileNumber: new FormControl("", [
+      fatherMobileNumber: new FormControl("", [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
         Validators.pattern("^[0-9]*$")
       ]),
+      
+        motherMobileNumber: new FormControl("", [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$")
+      ]),
+
       contactAddress: new FormControl("", [Validators.required]),
+      aadharCardNumber: new FormControl("", [Validators.required]),
       photoNumber: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required,Validators.pattern(this.emailPattern)]),
       imageFileName: new FormControl("", [Validators.required])
@@ -88,6 +110,19 @@ export class SaveStudentComponent {
     return this.saveStudentForm.get("fatherName");
   }
 
+ 
+  public get motherName() {
+    return this.saveStudentForm.get("motherName");
+  }
+  
+   public get aadharCardNumber() {
+    return this.saveStudentForm.get("aadharCardNumber");
+  }
+  
+  public get religionId(){
+    return this.saveStudentForm.get("religionId");
+  }
+
   public get gender() {
     return this.saveStudentForm.get("gender");
   }
@@ -95,8 +130,12 @@ export class SaveStudentComponent {
     return this.saveStudentForm.get("dateOfBirth");
   }
 
-  public get mobileNumber() {
-    return this.saveStudentForm.get("mobileNumber");
+  public get fatherMobileNumber() {
+    return this.saveStudentForm.get("fatherMobileNumber");
+  }
+
+  public get motherMobileNumber() {
+    return this.saveStudentForm.get("motherMobileNumber");
   }
 
   public get contactAddress() {
@@ -107,6 +146,7 @@ export class SaveStudentComponent {
     return this.saveStudentForm.get("bloodId");
   }
 
+ 
   public get classId() {
     return this.saveStudentForm.get("classId");
   }
@@ -133,6 +173,18 @@ export class SaveStudentComponent {
     );
   }
 
+
+   public getReligionList(): void {
+    this.masterService.getReligionList().subscribe(
+      data => {
+        console.log(data);
+        this.religionList = data;
+      },
+      error => console.log(error)
+    );
+  }
+
+
   public getClassDetailList(): void {
     this.masterService.getClassDetailList().subscribe(
       data => {
@@ -158,6 +210,13 @@ export class SaveStudentComponent {
      this.saveStudentForm.get("classId").setValue($event.source.value);
   }
 
+  public getReligion($event:any) {   
+     console.log($event.source.value); 
+     this.religionName=$event.source.triggerValue;
+    
+     this.saveStudentForm.get("religionId").setValue($event.source.value);
+  }
+
     public getBloodInfo($event:any) {   
     console.log($event.source.value);
     this.bloodGroupName=$event.source.triggerValue;
@@ -171,14 +230,18 @@ export class SaveStudentComponent {
     this.isSubmitted  =true;   
     this.baseUrl = "http://localhost:8000/schoolmanagement/student/saveStudent?studentName="+this.saveStudentForm.get("studentName").value+
                                                                   "&fatherName="+this.saveStudentForm.get("fatherName").value+
+                                                                  "&motherName="+this.saveStudentForm.get("motherName").value+                                                               
                                                                    "&gender="+this.saveStudentForm.get("gender").value+                                                                                                                                   
-                                                                   //"&dateOfBirth="+this.saveStudentForm.get("dateOfBirth").value+
                                                                    "&dateOfBirth="+dateOfBirth+
                                                                    "&classId="+ this.saveStudentForm.get("classId").value+   
-                                                                   "&className="+this.className+                                                          
+                                                                   "&className="+this.className+ 
+                                                                   "&religionId="+ this.saveStudentForm.get("religionId").value+       
+                                                                   "&religionName="+this.religionName+                                              
                                                                    "&bloodId="+this.saveStudentForm.get("bloodId").value+   
                                                                    "&bloodGroupName="+this.bloodGroupName+                                                                 
-                                                                   "&mobileNumber="+this.saveStudentForm.get("mobileNumber").value+
+                                                                   "&fatherMobileNumber="+this.saveStudentForm.get("fatherMobileNumber").value+
+                                                                   "&motherMobileNumber="+this.saveStudentForm.get("motherMobileNumber").value+
+                                                                   "&aadharCardNumber="+this.saveStudentForm.get("aadharCardNumber").value+  
                                                                    "&contactAddress="+this.saveStudentForm.get("contactAddress").value+  
                                                                    "&email="+this.saveStudentForm.get("email").value+            
                                                                    "&photoNumber="+this.saveStudentForm.get("photoNumber").value;
@@ -210,21 +273,18 @@ export class SaveStudentComponent {
     }
 
      public validateDateOfBirth():void{
-
+     alert("Hi");
     if(this.saveStudentForm.get("dateOfBirth").value!=null){
- 
-    let selectedBirthDate = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy"); 
-    let currentDate=this._dataPipe.transform(new Date(), "dd/MM/yyyy");    
-    alert(selectedBirthDate+" "+currentDate);
-    if (selectedBirthDate > currentDate )  {
-                      
-
-                this.showAlert("success","BirthDate should not be greater than Current Date'");
-            
     
-  }
-
-    }
+      let selectedBirthDate = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy"); 
+      let currentDate=this._dataPipe.transform(new Date(), "dd/MM/yyyy");    
+      
+      if (selectedBirthDate > currentDate )  {                    
+          
+            this.showAlert("","BirthDate should not be greater than Current Date'");        
+      
+      }
+      }
     else
     alert("provide dateofbirth ");
    
@@ -233,7 +293,7 @@ export class SaveStudentComponent {
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {
-        duration:3000, // Optional duration in milliseconds
+        duration:5000, // Optional duration in milliseconds
         horizontalPosition: 'center', // Optional horizontal position
         verticalPosition: 'top', // Optional vertical position
       });
