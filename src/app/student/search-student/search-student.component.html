@@ -1,22 +1,40 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title style="text-align: center; color:blue">Student Search Form</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+  <form [formGroup]="searchStudentForm">
+    <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+      <mat-grid-tile>
+        <mat-form-field class="form-field">
+          <mat-label> Student ID
+          </mat-label>
+          <input matInput formControlName="studentId" type="text" placeholder="Enter Your StudentId">
+        </mat-form-field>
+      </mat-grid-tile>
 
-<div *ngIf="students===null">
+
+    </mat-grid-list>
+
+    <mat-card-actions>
+      <div style="magin:2%; text-align:right;">
+<button mat-raised-button color="primary" type="submit" (click)="getStudentById()">Search</button>&nbsp;
+<button mat-raised-button color="accent" type="button" (click)="clear()">Clear</button>
+</div>
+
+
+<div *ngIf="this.student===null">
   <h2 style="text-align: center; color:blue">No Records Found</h2>
 </div>
 
-<div *ngIf="students!== null">
-   <h3 align="center" style="color:darkslateblue ;">STUDENT DETAILS</h3>
-  
-  <div>     
-     <button type="button" class="mat-class-student-add-button"  style="float: right;" mat-raised-button color="accent" (click)="addStudent()" >Add New Student</button>
+<div *ngIf="isFlag && this.student!=null">
+  <h3 align="center" style="color:darkslateblue ;">STUDENT DETAILS</h3>
 
-    </div><br>
+<table mat-table [dataSource]="dataSource" matSort>
 
-<mat-paginator color="accent" [pageSizeOptions]= "pageSizes"> </mat-paginator>
-  <table mat-table  [dataSource]="dataSource" matSort>
-   
-  
-   <ng-container matColumnDef="studentId">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student" >Student Id</th>
+
+  <ng-container matColumnDef="studentId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Student Id</th>
     <td mat-cell *matCellDef="let element">{{ element.studentId }}</td>
   </ng-container>
 
@@ -45,7 +63,7 @@
     <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
   </ng-container>
 
-   <ng-container matColumnDef="className">
+  <ng-container matColumnDef="className">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Class Name</th>
     <td mat-cell *matCellDef="let element">{{ element.className }}</td>
   </ng-container>
@@ -54,9 +72,9 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Blood Group</th>
     <td mat-cell *matCellDef="let element">{{ element.bloodGroupName }}</td>
   </ng-container>
- 
 
-<ng-container matColumnDef="fatherMobileNumber">
+
+  <ng-container matColumnDef="fatherMobileNumber">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">FatherMobile Number</th>
     <td mat-cell *matCellDef="let element">{{ element.fatherMobileNumber }}</td>
   </ng-container>
@@ -66,19 +84,19 @@
     <td mat-cell *matCellDef="let element">{{ element.motherMobileNumber }}</td>
   </ng-container>
 
- <ng-container matColumnDef="religionName">
+  <ng-container matColumnDef="religionName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Religion</th>
     <td mat-cell *matCellDef="let element">{{ element.religionName }}</td>
   </ng-container>
 
 
-<ng-container matColumnDef="aadharCardNumber">
+  <ng-container matColumnDef="aadharCardNumber">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">AadharNo</th>
     <td mat-cell *matCellDef="let element">{{ element.aadharCardNumber }}</td>
   </ng-container>
 
 
-<ng-container matColumnDef="contactAddress">
+  <ng-container matColumnDef="contactAddress">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student">Address</th>
     <td mat-cell *matCellDef="let element">{{ element.contactAddress }}</td>
   </ng-container>
@@ -88,25 +106,16 @@
     <td mat-cell *matCellDef="let element">{{ element.email }}</td>
   </ng-container>
 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
-  <ng-container matColumnDef="Actions">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-student"> Actions </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="onEdit(element)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="onDelete(element)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  
+</div>
 
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+</mat-card-actions>
+</form>
 
-  
+</mat-card-content>
 
-</div> 
+
+</mat-card>

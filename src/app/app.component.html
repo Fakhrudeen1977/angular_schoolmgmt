@@ -49,7 +49,7 @@
 
                         Add Student
                     </a>
-                    <a mat-list-item routerLink="#">
+                    <a mat-list-item routerLink="/searchStudent">
                         Search Student
                     </a>
                      <a mat-list-item routerLink="/viewStudent">
@@ -58,6 +58,34 @@
                    
                 </mat-nav-list>
             </mat-expansion-panel>
+
+
+             <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>student</mat-icon><span>Teacher</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/saveStudent">
+
+                        Add Teacher
+                    </a>
+                    <a mat-list-item routerLink="#">
+                        View Teacher
+                    </a>
+                     <a mat-list-item routerLink="/viewStudent">
+                        Search Teacher
+                    </a>
+                     <a mat-list-item routerLink="/viewStudent">
+                        Update MobileNumber
+                    </a>
+                     <a mat-list-item routerLink="/viewStudent">
+                        Update Photo
+                    </a>
+                   
+                </mat-nav-list>
+            </mat-expansion-panel>   
+
+
 
 
            

@@ -35,7 +35,7 @@ export class StudentService {
  
   }
     
- public getStudentById(studentId:number) {    
+ public getStudentById(studentId:number):Observable<any> {    
      return this.http.get(`${this.baseUrl}getStudentById/${studentId}`);            
   }
 

@@ -1,3 +1,4 @@
+import {StudentImage } from "../models/StudentImage.model";
 export class Student {
     studentId:number;
     studentName:string;
@@ -19,6 +20,11 @@ export class Student {
     imageFileName:string;
     realImage:any;
     email:string;
+
+    religionId:number;
+	religionName:string;
+
+    studentImage:StudentImage;
     
    
 

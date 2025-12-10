@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { SaveStudentComponent } from './student/save-student/Save-Student.component';
 import { ViewStudentComponent } from './student/view-student/view-student.component';
 import { UpdateStudentComponent } from './student/update-student/update-student.component';
-
+import { SearchStudentComponent } from './student/search-student/search-student.component';
 import { SaveClassComponent } from './classinfo/save-class/save-class.component';
 import { ViewClassComponent } from './classinfo/view-class/view-class.component';
 import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
@@ -24,6 +24,8 @@ const routes: Routes = [
    { path: 'saveStudent',  component:SaveStudentComponent },
    { path: 'updateStudent',  component:UpdateStudentComponent },
    { path: 'viewStudent',  component:ViewStudentComponent },
+   { path: 'searchStudent',  component:SearchStudentComponent }, 
+
 
     { path: 'saveClass',  component: SaveClassComponent },
     { path: 'viewClass',  component: ViewClassComponent },

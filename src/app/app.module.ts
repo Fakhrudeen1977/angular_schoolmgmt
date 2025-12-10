@@ -57,6 +57,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SaveClassComponent } from './classinfo/save-class/save-class.component';
 import { ViewClassComponent } from './classinfo/view-class/view-class.component';
 import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
+import { SearchStudentComponent } from './student/search-student/search-student.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,8 @@ import { UpdateClassComponent } from './classinfo/update-class/update-class.comp
     SaveClassComponent,
     ViewClassComponent,
     UpdateClassComponent,
+    SearchStudentComponent,
+   
 
   ],
   entryComponents: [EditbloodgroupComponent,ConfirmDialogComponent,UpdateStudentComponent],

@@ -5,7 +5,7 @@
   </mat-card-header>
   <mat-card-content>
      <form [formGroup]="updateStudentForm">
-      <mat-grid-list cols="1" rowHeight="100px" gutterSize="15px">
+      <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
         <mat-grid-tile>
           <mat-form-field class="form-field">
             <mat-label> Student ID
@@ -13,10 +13,7 @@
             <input matInput formControlName="studentId" type="text">
           </mat-form-field>
         </mat-grid-tile>
-       </mat-grid-list>
 
-
-        <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
           <mat-grid-tile>
 
             <mat-form-field class="form-field">
@@ -44,6 +41,43 @@
 
             </mat-form-field>
           </mat-grid-tile>
+
+       </mat-grid-list>
+
+
+        <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+        
+        
+           <mat-grid-tile>
+          <mat-form-field class="form-field">
+            <mat-label> Mother Name
+            </mat-label>
+            <input matInput formControlName="motherName">
+            <mat-error *ngIf="motherName.touched && motherName.invalid">
+              <span *ngIf="motherName.errors.required">Mother Name is required.</span>
+
+            </mat-error>
+
+            <mat-error *ngIf="motherName?.hasError('pattern')">
+              Mother Name should be only letter.
+            </mat-error>
+
+            <mat-error *ngIf="motherName?.hasError('minlength')">
+              Mother Name should be minimum 6 characters.
+            </mat-error>
+
+            <mat-error *ngIf="motherName?.hasError('maxlength')">
+              Mother Name should be maximm 30 characters.
+            </mat-error>
+            <mat-error *ngIf="motherName?.hasError('pattern')">
+              Mother Name should be only letter.
+            </mat-error>
+
+
+          </mat-form-field>
+
+        </mat-grid-tile>        
+        
 
           <mat-grid-tile>
 
@@ -148,8 +182,98 @@
           </mat-grid-tile>
         </mat-grid-list>
 
+          <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+
+        <mat-grid-tile>
+          <mat-form-field class="form-field">
+            <mat-label> Mother Mobile Number
+            </mat-label>
+            <input matInput formControlName="motherMobileNumber">
+            <mat-error *ngIf="motherMobileNumber.touched && motherMobileNumber.invalid">
+              <span *ngIf="motherMobileNumber.errors.required">Mother Mobile Number is required.</span>
+
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('pattern')">
+              Mother Mobile Number should be only number.
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('minlength')">
+              Mother Number should be minimum 10 characters.
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('maxlength')">
+              Mother Mobile Number should be maximm 10 characters.
+            </mat-error>
+
+
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Father Mobile Number
+            </mat-label>
+            <input matInput formControlName="fatherMobileNumber">
+            <mat-error *ngIf="fatherMobileNumber.touched && fatherMobileNumber.invalid">
+              <span *ngIf="fatherMobileNumber.errors.required">Father Mobile Number is required.</span>
+
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('pattern')">
+              Father Mobile Number should be only number.
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('minlength')">
+              Father Number should be minimum 10 characters.
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('maxlength')">
+              Father Mobile Number should be maximm 10 characters.
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+
+
 
         <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+
+          
+        <mat-grid-tile>
+          <mat-form-field class="form-field">
+
+            <mat-label>Aadhar Card: </mat-label>
+            <input matInput formControlName="aadharCardNumber">
+
+            <mat-error *ngIf="aadharCardNumber.touched && aadharCardNumber.invalid">
+              <span *ngIf="aadharCardNumber.errors.required">Aadhar Card  is required.</span>
+
+            </mat-error>
+
+
+            <mat-error *ngIf="aadharCardNumber.touched && aadharCardNumber.invalid">
+              <span *ngIf="aadharCardNumber.errors.pattern">Aadhar Card  is not valid.</span>
+
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
+
           <mat-grid-tile>
 
             <mat-form-field class="form-field">
@@ -165,35 +289,7 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-
-            <mat-form-field class="form-field">
-              <mat-label> Mobile Number
-              </mat-label>
-              <input matInput formControlName="mobileNumber">
-              <mat-error *ngIf="mobileNumber.touched && mobileNumber.invalid">
-                <span *ngIf="mobileNumber.errors.required">Mobile Number is required.</span>
-
-              </mat-error>
-
-
-              <mat-error *ngIf="mobileNumber?.hasError('pattern')">
-                Mobile Number should be only number.
-              </mat-error>
-
-
-              <mat-error *ngIf="mobileNumber?.hasError('minlength')">
-                Mobile Number should be minimum 10 characters.
-              </mat-error>
-
-
-              <mat-error *ngIf="mobileNumber?.hasError('maxlength')">
-                Mobile Number should be maximm 10 characters.
-              </mat-error>
-
-
-            </mat-form-field>
-          </mat-grid-tile>
+         
         </mat-grid-list>
 
 
@@ -237,7 +333,7 @@
           </mat-grid-tile>
         </mat-grid-list>
 
-        <mat-grid-list cols="4" rowHeight="150px">
+        <mat-grid-list cols="2" rowHeight="100px" gutterSize="13px">
           <mat-grid-tile>
 
             <mat-form-field class="form-field">
@@ -254,11 +350,41 @@
             </mat-form-field>
           </mat-grid-tile>
 
+   
+         
+            <mat-grid-tile>
+          <mat-form-field class="form-field">
+            <mat-label> Select Religion
+            </mat-label>
+
+            <mat-select formControlName="religionId" (selectionChange)="getReligion($event)">
+              <mat-option *ngFor="let religion of religionList" [value]="religion.religionId">{{religion.religionName}}</mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="religionId?.hasError('required')">
+              Religion is required.
+            </mat-error>
+
+
+          </mat-form-field>
+
+        </mat-grid-tile>
+
         </mat-grid-list>
 
 
+ <mat-grid-list cols="2" rowHeight="100px" gutterSize="13px">
+          <mat-grid-tile>
+             <mat-label>Displaying Image</mat-label>  
+            <div>  
+         <img
+      [src]="this.displayImage" style="width:100px;height: 100px;"  alt="Angular" />
+  
+          </div>
 
+          </mat-grid-tile>
 
+</mat-grid-list>
 
         <mat-card-actions>
           <div style="magin:2%; text-align:right;">
@@ -273,3 +399,5 @@
 </mat-card-content>
 
 </mat-card>
+
+

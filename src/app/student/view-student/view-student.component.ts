@@ -8,7 +8,6 @@ import {
   Validators
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-
 import { StudentService } from "../../services/student.service";
 import { MasterService } from "../../services/master.service";
 import { Observable } from "rxjs";
@@ -18,7 +17,6 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatDialog } from '@angular/material';
-
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Student } from "../../models/student.model";
 import { UpdateStudentComponent } from '../../student/update-student/update-student.component';
@@ -40,6 +38,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
  
   errorMessage = "";
   public students: Student[] = [];
+ 
   isFlag: boolean = false;
   pageSizes = [10];
   dialogRef: any;  
@@ -71,12 +70,18 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
    
     this.studentService.getStudentList().subscribe(
       data => {
-        console.log("Student List ");      
+        console.log("Student List");  
+        console.log(data)    ;
         this.students=data;         
         console.log(this.students);  
         this.dataSource = new MatTableDataSource(this.students);     
 
-      }, error => console.log(error));
+      }, 
+       error => {
+       
+        this.errorMessage = error.message;
+                
+    })
   }
 
 
