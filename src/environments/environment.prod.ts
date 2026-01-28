@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  baseURL:'http://localhost:8000/schoolmanagement'
+  apiUrl: 'http://localhost:8000/schoolmanagement'
+
 };

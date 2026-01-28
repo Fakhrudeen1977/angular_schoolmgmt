@@ -17,9 +17,9 @@ export class DashboardComponent  {
   public birthDayStudentList: Student[] = []; 
   public numberOfHit:number=0;
   constructor(public studentService: StudentService,public tokenStorageService: TokenStorageService) {
-   // this.getMaleStudentList();
-    //this.getFemaleStudentList();
-    //this.getBirthBabiesList();
+    this.getMaleStudentList();
+   this.getFemaleStudentList();
+   this.getBirthBabiesList();
 
   } 
 

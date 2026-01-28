@@ -243,9 +243,7 @@ export class UpdateStudentComponent implements OnInit {
      console.log(value);  
      this.updateStudentForm.get("gender").setValue(value);
      
-  }
-
-  
+  } 
 
 
    public getReligionList(): void {
@@ -268,7 +266,7 @@ export class UpdateStudentComponent implements OnInit {
     public getReligionithoutEvent():any{    
      let getClassObj=this.religionList.find(r=>r.religionId=== this.updateStudentForm.get("religionId").value);   
      this.religionName=getClassObj.religionName;        
-     return this.className;     
+     return this.religionName;     
 
    }
 
@@ -323,6 +321,7 @@ export class UpdateStudentComponent implements OnInit {
     if(this.isEventAction==false){
       this.getBloodGroupNameWithoutEvent();
       this.getClassNameWithoutEvent();
+      this.getReligionithoutEvent();
     }   
 
 
@@ -352,10 +351,8 @@ export class UpdateStudentComponent implements OnInit {
         console.log("After SaveStudent");
         console.log(data);
         this.isSubmitted =false;
-
          if (data != null) {
-             this.showAlert("success","Student Details Updated Successfully");
-            
+             this.showAlert("success","Student Details Updated Successfully");           
             
          
         }

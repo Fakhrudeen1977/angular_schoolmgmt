@@ -12,8 +12,11 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+           "proxyConfig": "src/proxy.conf.json" ,
           "options": {
-            "outputPath": "dist/angular-material-school",
+            //"outputPath": "dist/angular-material-school",
+             "outputPath": "../src/main/resources/static",
+         
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

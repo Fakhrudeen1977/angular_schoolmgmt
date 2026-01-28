@@ -1,6 +1,6 @@
 <mat-card class="mat-register-card"> 
   <mat-card-header>
-    <mat-card-title class=" mat-register-title">User Registration</mat-card-title>
+    <mat-card-title class="mat-register-title">User Registration</mat-card-title>
   </mat-card-header>  
      
  <mat-card-content >
@@ -70,6 +70,11 @@
         <mat-error *ngIf="email?.hasError('required')">
              Email is required.
         </mat-error>  
+
+       <mat-error *ngIf="email.touched && email.invalid">
+              <span *ngIf="email.errors.pattern">Email  is not valid.</span>
+
+            </mat-error>
         
 
       </mat-form-field>  
@@ -89,6 +94,19 @@
            
 
       </mat-form-field>  
+
+       <mat-form-field class="form-field">
+            <mat-label>Upload Image</mat-label>
+            <input matInput>
+            <input type="file" formControlName="imageFileName" (change)="selectFile($event)">
+
+            <mat-error *ngIf="imageFileName.touched && imageFileName.invalid">
+              <span *ngIf="imageFileName.errors.required">Image  is required.</span>
+
+            </mat-error>
+
+
+          </mat-form-field>
                
     
       <mat-card-actions>

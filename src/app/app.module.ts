@@ -30,7 +30,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { PracticeComponent } from './practice/practice.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -47,10 +46,9 @@ import { MY_DATE_FORMATS } from './date-format/my-date-formats';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatNativeDateModule, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
-import { JsonComponent } from './json/json.component';
+
 import { EditbloodgroupComponent } from './bloodgroup/editbloodgroup/editbloodgroup.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { SaveStudentComponent } from './student/save-student/Save-Student.component';
 import { ViewStudentComponent } from './student/view-student/view-student.component';
 import { UpdateStudentComponent } from './student/update-student/update-student.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -58,28 +56,27 @@ import { SaveClassComponent } from './classinfo/save-class/save-class.component'
 import { ViewClassComponent } from './classinfo/view-class/view-class.component';
 import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
 import { SearchStudentComponent } from './student/search-student/search-student.component';
+import { SaveStudentComponent } from './student/save-student/save-student.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    PracticeComponent,
     SidenavComponent,
     DashboardComponent,    
     SavebloodgroupComponent,
     ViewbloodgroupComponent,
-    SaveStudentComponent,
-    JsonComponent,
+   
     EditbloodgroupComponent,
     ConfirmDialogComponent,
-    SaveStudentComponent,
     ViewStudentComponent,
     UpdateStudentComponent,
     SaveClassComponent,
     ViewClassComponent,
     UpdateClassComponent,
     SearchStudentComponent,
+    SaveStudentComponent,
    
 
   ],

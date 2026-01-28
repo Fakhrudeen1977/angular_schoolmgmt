@@ -104,7 +104,7 @@
           <mat-form-field class="form-field" color="primary">
             <mat-label> Date of Birth
             </mat-label>
-            <input matInput [matDatepicker]="birthDate" formControlName="dateOfBirth" (blur)="validateDateOfBirth()">
+            <input matInput [matDatepicker]="birthDate" formControlName="dateOfBirth">
             <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
             <mat-datepicker #birthDate></mat-datepicker>
 
@@ -112,6 +112,11 @@
               <span *ngIf="dateOfBirth.errors.required">Date of Birth  is required.</span>
 
             </mat-error>
+              <mat-error *ngIf="dateOfBirth?.hasError('futureDate')">
+                   BirthDate should not be greater than Current Date
+          </mat-error>
+             
+
           </mat-form-field>
         </mat-grid-tile>
 
@@ -377,7 +382,7 @@
       <mat-card-actions>
         <div style="magin:2%; text-align:right;">
 <button mat-raised-button color="primary" type="submit" [disabled]="!saveStudentForm.valid" (click)="saveStudent()">Save</button>&nbsp;
-<button mat-raised-button color="accent" type="button" (click)="clear()">Clear</button>
+
 </div>
 
 </mat-card-actions>

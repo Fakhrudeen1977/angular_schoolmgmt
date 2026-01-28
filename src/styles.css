@@ -7,11 +7,35 @@
   max-width: 500px;
   margin: 100px auto;
   border: 2px solid blue; 
- 
   
 
 }
 
+.mat-table{
+ 
+  margin-top:16px;
+}
+
+.mat-table th{ 
+  background-color: lightskyblue;
+  width:700px;
+  max-width: 900px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-weight: bold;
+}
+
+.mat-header-row,.mat-row{
+  height:48px;
+}
+
+.mat-row:nth-of-type(odd){
+    background-color: lightblue;
+}
+
+.mat-row:nth-of-type(even){
+  background-color: honeydew;
+}
 .mat-blood-card {
   display: flex;
   align-items: center;
@@ -51,9 +75,56 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   max-width: 600px;
   margin: 100px auto;
+}
+
+ul,ol,li {
+  list-style-type: square;   
+ 
+ 
+}
+
+.maleStudent{  
+  width: 400px; 
+  background-color:honeydew;
+  border: 1px solid;
+  border-color: green;
+  text-align: center;
+  color:blue;
+  border-radius: 25px;
+  height:400px;
+  margin-right: 20px; 
+ 
+}
+
+.femaleStudent{
+  width: 400px; 
+  background-color:honeydew;
+  border: 1px solid;
+  border-color: green;
+  text-align: center;
+  color:crimson;
+  border-radius: 25px;
+  height:400px;
+  margin-right: 20px; 
+  
+  
+
+}
+
+
+.birthdayBabies{
+  width: 400px; 
+  background-color:honeydew;
+  border: 1px solid;
+  border-color: teal;
+  text-align: center;
+  color:darkviolet;
+  border-radius: 25px;
+  height:400px;
+  margin-right: 20px; 
+
 }
 
 
@@ -62,6 +133,9 @@
   color: blue;
   font-size: 25px;
   text-align: center;
+  justify-content: center;
+  margin: auto
+  
 }
 
 .mat-login-title {
@@ -152,18 +226,111 @@ mat-sidenav {
   
 }
 
-.column-small-class{
-  width:350px;
+.column-small-class{  
   color: blue;
   font-size: 20px;
+  width:350px;
   
 }
 
-.column-small-student{
-  width:1000px;
-  color: blue;
-  font-size: 20px;
+.column-studentId{ 
+  font-size: 15px;
+  width:500px;
+  max-width: 700px;
     
+}
+
+.column-studentName{
+  width:700px;
+  max-width: 900px;
+  font-size: 15px;
+    
+}
+
+.column-studentFatherName{
+  width:700px;
+  max-width: 900px;
+  font-size: 15px;
+    
+}
+
+.mat-table td{
+  width:700px;
+  max-width: 1000px;
+}
+
+.column-studentMotherName{
+  width:700px;
+  max-width: 900px;
+  font-size: 15px;
+    
+}
+
+.column-studentDOB{
+  width:700px;
+  max-width: 900px;
+  font-size: 15px;
+}
+
+.column-studentGender{
+  width:690px;
+  max-width: 700px;
+  font-size: 15px;
+}
+
+.column-studentClassName{
+   width:690px;
+  max-width: 700px;
+ font-size: 15px;
+}
+
+.column-studentBloodGroup{
+     width:690px;
+  max-width: 700px;
+  font-size: 15px;
+
+}
+.column-studentFatherMobileNumber{
+     width:690px;
+  max-width: 700px;
+ font-size: 15px;
+}
+
+.column-studentReligion{
+      width:690px;
+  max-width: 700px;
+  font-size: 15px;
+}
+
+.column-studentAadharNo{
+       width:690px;
+  max-width: 700px;
+  font-size: 15px;
+}
+
+.column-studentAddress{
+        width:690px;
+  max-width: 700px;
+   font-size: 15px;
+}
+
+.column-studentEmail{
+       width:690px;
+  max-width: 700px;
+  
+  font-size: 15px;
+}
+
+.column-studentMotherMobileNumber{
+      width:690px;
+  max-width: 700px;
+  font-size: 15px;
+}
+
+.column-studentActions{
+  width:700px;
+  max-width: 900px;
+  font-size: 15px;
 }
 
 
@@ -224,3 +391,6 @@ mat-sidenav {
   width: 500px;
   border-radius: 50%;
 }
+
+
+

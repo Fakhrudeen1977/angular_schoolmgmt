@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClassDetails } from "../../models/classdetail.model";
 import { Religion } from "../../models/religion.model";
 import { DatePipe } from "@angular/common";
-
+import { CustomvalidatorService } from '../../services/customvalidator.service';
 @Component({
   selector: "app-save-student",
   templateUrl: "./save-student.component.html",
@@ -76,7 +76,7 @@ export class SaveStudentComponent {
 
       gender: new FormControl("", [Validators.required]),
       religionId:new FormControl("", [Validators.required]),
-      dateOfBirth: new FormControl("", [Validators.required]),
+      dateOfBirth: new FormControl("", [Validators.required,CustomvalidatorService.futuerDateValidator()]),
       classId: new FormControl("", [Validators.required]),
      
       bloodId: new FormControl("", [Validators.required]),
@@ -95,7 +95,9 @@ export class SaveStudentComponent {
       ]),
 
       contactAddress: new FormControl("", [Validators.required]),
-      aadharCardNumber: new FormControl("", [Validators.required]),
+      aadharCardNumber: new FormControl("", [Validators.required,CustomvalidatorService.aadharValidator()]),
+    
+
       photoNumber: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required,Validators.pattern(this.emailPattern)]),
       imageFileName: new FormControl("", [Validators.required])
@@ -248,8 +250,9 @@ export class SaveStudentComponent {
 
                                                                  
           
-
-    this.studentService.saveStudent(this.baseUrl,this.selectedFile).subscribe(
+    
+     
+       this.studentService.saveStudent(this.baseUrl,this.selectedFile).subscribe(
       data => {
         console.log("After SaveStudent");
         console.log(data);
@@ -270,26 +273,30 @@ export class SaveStudentComponent {
       }
     );
      
-    }
+   
+   
+  }
+   
 
-     public validateDateOfBirth():void{
-     alert("Hi");
+    /* public validateDateOfBirth():boolean{
+     let isFlag=false;
     if(this.saveStudentForm.get("dateOfBirth").value!=null){
-    
+      
       let selectedBirthDate = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy"); 
       let currentDate=this._dataPipe.transform(new Date(), "dd/MM/yyyy");    
       
-      if (selectedBirthDate > currentDate )  {                    
-          
-            this.showAlert("","BirthDate should not be greater than Current Date'");        
+      alert("Date"+" "+selectedBirthDate+" "+currentDate);
+
+      if (selectedBirthDate > currentDate ){                    
+            isFlag=true;
+            this.showAlert("info","BirthDate should not be greater than Current Date'");        
       
       }
       }
-    else
-    alert("provide dateofbirth ");
+      return isFlag;
    
    
-  }  
+  }  */
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {

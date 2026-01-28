@@ -1,23 +1,28 @@
             
             <div class="app-sidenav-content" style=" background-color:aliceblue " >
-                <div style=" width: 300px; background-color:lightblue " >
-                    <h5>Male Student</h5>
+
+                <div class="maleStudent" >
+                    <h3>Male Student</h3>
                     <ul>
+                        <ol>
                         <li *ngFor="let student of maleStudents">{{student.studentName|uppercase }}</li>
+                        </ol>
                     </ul>
 
                 </div>
 
-               <div style="width: 300px; background-color:lightblue ">
-                     <h5>Female Student</h5>                
+               <div class="femaleStudent" >
+                     <h3>Female Student</h3>                
                     <ul>
+                        <ol>
                         <li *ngFor="let student of femaleStudents">{{ student.studentName|uppercase }}</li>
+                        </ol>
                     </ul>
 
                 </div>
 
-                <div style="width:300px;background-color:lightblue ">
-                     <h5>BirthDay Babies</h5>               
+                <div class="birthdayBabies">
+                     <h3>BirthDay Babies</h3>               
                     
                     <ul>
                         <li *ngFor="let studentBirthDate of birthDayStudentList">{{studentBirthDate.studentName|uppercase}}

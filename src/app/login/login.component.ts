@@ -5,6 +5,10 @@ import { Login } from '../models/login.model';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from '../services/tokenstorage.service';
+
+import { UserImageService } from '../services/user-image.service';
+
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,9 +24,11 @@ export class LoginComponent implements OnInit {
   login: Login = new Login();
   getUserName: string;
   isSubmitted:boolean=false;  
+  displayImage: SafeUrl;
+  base64Image: string = "";
  
-  constructor(public router: Router, public authService: AuthService, public tokenStorage: TokenStorageService,private snackBar: MatSnackBar) {
-    console.log("Login Component Loading");
+  constructor(public router: Router, public authService: AuthService, public tokenStorage: TokenStorageService,private snackBar: MatSnackBar,private sanitizer: DomSanitizer,private userImageService: UserImageService) {
+  
     this.getFormGroup();
   }
 
@@ -62,17 +68,17 @@ export class LoginComponent implements OnInit {
         console.log(data.token);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
-        this.tokenStorage.saveRefreshToken(data.refreshToken);
-
-
-        this.isLoginFailed = false;
+        this.tokenStorage.saveRefreshToken(data.refreshToken);       
+       
+        this.base64Image = 'data:image/jpeg;base64,'+data.imageData;  
+        //this.isLoginFailed = false;
         this.isLogindIn = true;
         this.roles = this.tokenStorage.getUser().roles;
         this.getUserName = this.tokenStorage.getUser().userName;
-
-        console.log("Roles");
-        console.log(this.roles);
-        console.log(this.getUserName);
+       
+        sessionStorage.setItem('userImage', data.imageData);       
+        sessionStorage.setItem("currentRoles", this.roles.toString());
+        sessionStorage.setItem("currentUserName",  this.getUserName);
        
         this.reloadPage();
       },

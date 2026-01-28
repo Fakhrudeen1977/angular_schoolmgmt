@@ -9,7 +9,7 @@
         <mat-form-field class="form-field">
           <mat-label> Student ID
           </mat-label>
-          <input matInput formControlName="studentId" type="text" placeholder="Enter Your StudentId">
+          <input matInput formControlName="studentId" type="text"  placeholder="Enter Your StudentId">
         </mat-form-field>
       </mat-grid-tile>
 
@@ -17,10 +17,10 @@
     </mat-grid-list>
 
     <mat-card-actions>
-      <div style="magin:2%; text-align:right;">
+    
 <button mat-raised-button color="primary" type="submit" (click)="getStudentById()">Search</button>&nbsp;
 <button mat-raised-button color="accent" type="button" (click)="clear()">Clear</button>
-</div>
+
 
 
 <div *ngIf="this.student===null">
@@ -28,7 +28,7 @@
 </div>
 
 <div *ngIf="isFlag && this.student!=null">
-  <h3 align="center" style="color:darkslateblue ;">STUDENT DETAILS</h3>
+  <h3 align="center" style="color:blue ;">STUDENT DETAILS</h3>
 
 <table mat-table [dataSource]="dataSource" matSort>
 

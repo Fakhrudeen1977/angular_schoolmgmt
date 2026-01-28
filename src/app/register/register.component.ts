@@ -25,7 +25,9 @@ export class RegisterComponent  {
   errorMessage = '';
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   roleList: Role[] = [];
-
+  selectedFiles: File;
+  selectedFile: File;
+   baseUrl:string;
   constructor( public router: Router, public authService: AuthService,public masterService:MasterService ,private snackBar: MatSnackBar) {
     this.getFormGroup();
     this.getRoleList();
@@ -37,8 +39,9 @@ export class RegisterComponent  {
       name: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),      
       role: new FormControl('', [Validators.required]),
+      imageFileName: new FormControl("", [Validators.required])
 
     });
 
@@ -64,6 +67,11 @@ export class RegisterComponent  {
     return this.signupFrm.get('role');
   }
 
+   public get imageFileName() {
+    return this.signupFrm.get("imageFileName");
+  }
+
+
   public getRoleList(): void {
     this.masterService.getRoleList().subscribe(
       data => {
@@ -88,35 +96,41 @@ export class RegisterComponent  {
 
   public register(): void {
     console.log("Register");  
-    this.signup.name=this.signupFrm.get("name").value;
-    this.signup.userName=this.signupFrm.get("userName").value;
-    this.signup.password=this.signupFrm.get("password").value;
-    this.signup.email=this.signupFrm.get("email").value;
-    //this.signup.roles=this.roles;
+    //this.signup.name=this.signupFrm.get("name").value;
+    //this.signup.userName=this.signupFrm.get("userName").value;
+    //this.signup.password=this.signupFrm.get("password").value;
+    //this.signup.email=this.signupFrm.get("email").value;
     
+     this.signup.roles=this.roles;    
     
     for (let i = 0; i < this.roles.length; i++) {
         
         const resultString: string = this.roles.toString();
-        this.splitedRoleNames= resultString.split(",");
-              
+        this.splitedRoleNames= resultString.split(",");              
 
     }     
       
     for (let i = 0; i <this.splitedRoleNames.length; i++) {
      
-         this.assignedRoles.push(this.splitedRoleNames[i].toString().trim());
-        
+         this.assignedRoles.push(this.splitedRoleNames[i].toString().trim());      
 
     }
 
-   //this.signup.roles=['Admin','User'];
-   this.signup.roles=this.assignedRoles;
+  
+   this.signup.roles=this.assignedRoles;  
+  
 
-    console.log(this.signup);
+  this.baseUrl = "http://localhost:8000/schoolmanagement/auth/userSignup?name="+this.signupFrm.get("name").value+
+                                                                  "&userName="+this.signupFrm.get("userName").value+
+                                                                  "&password="+this.signupFrm.get("password").value+                                                               
+                                                                  "&email="+this.signupFrm.get("email").value+
+                                                                  //"&role="+this.signup.roles;
+                                                                   "&role="+this.roles;
+                                                     
+ 
+
   
-  
- this.authService.register(this.signup).subscribe(
+ this.authService.register(this.baseUrl,this.selectedFile).subscribe(
       data => {
           console.log("Registration Done");          
 
@@ -150,6 +164,24 @@ export class RegisterComponent  {
     event.preventDefault();
     this.router.navigate(["/login"]);
   } 
+
+   selectFile(event: any) {
+    const file = event.target.files.item(0);
+    //alert("File chosent"+" "+file);
+
+    if (file.type.match("image.*")) {
+      var size = event.target.files[0].size;
+      if (size > 1000000) {
+        alert("size must not exceeds 1 MB");
+        this.signupFrm.get("imageFileName").setValue("");
+      } else {
+        this.selectedFile = file;
+       
+      }
+    } else {
+      alert("invalid format!");
+    }
+  }
 
 
 

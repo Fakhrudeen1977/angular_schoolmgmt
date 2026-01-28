@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.prod';
 export class StudentService {
 
   //private  baseUrl = "http://localhost:8000/api/student/";  
-  private baseUrl=environment.baseURL+"/student/";  
+  private baseUrl=environment.apiUrl+"/student/";  
 
 
   constructor(private http: HttpClient) { }

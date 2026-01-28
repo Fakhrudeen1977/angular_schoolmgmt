@@ -1,19 +1,26 @@
 
+
+
 <div id="app" *ngIf="isLoggedIn">
+   
 <mat-toolbar color="accent">
     <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
         <mat-icon>menu</mat-icon>
     </button>
-    <span>Sacred Heart Convent</span>
+    <span>Sacred Heart Convent Welcome {{this.name}} &nbsp;Your Current Roles:&nbsp;{{this.roles}} </span>
     <span class="toolbar-item-spacer"></span>
     
 
     <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon><img 
+     [src]="this.base64Image "
+     width="50px"
+     height="50px"
+     alt="Profile Image"></mat-icon>
     </button>
     <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
         <button mat-menu-item routerLink="#">
-            <mat-icon>person</mat-icon><span>My Account</span>
+            <mat-icon></mat-icon><span>My Account</span>
         </button>
 
          <mat-divider></mat-divider>
@@ -182,6 +189,7 @@
         </router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
+ 
 
 </div>
 

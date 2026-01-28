@@ -6,7 +6,9 @@ import { TokenStorageService } from './services/tokenstorage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MatDialog } from '@angular/material'; 
-import { SaveStudentComponent } from './student/save-student/Save-Student.component';
+import { SaveStudentComponent } from './student/save-student/save-student.component';
+import { UserImageService } from './services/user-image.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,12 +26,12 @@ export class AppComponent implements  OnInit{
   roleAdmin:string;
   roleUser:string;
   roleHR:string;
-  refreshToken:any;
+  refreshToken:any;  
+  userRoles:string;
+  base64Image: string = "";   
   
-  constructor(public tokenStorageService: TokenStorageService,public router: Router,private _dialog:MatDialog) {
-       
-    console.log("App Component Loading");
-
+  constructor(public tokenStorageService: TokenStorageService,public router: Router,private _dialog:MatDialog,private userImageService: UserImageService) {
+        
    }
 
    openDialog(): void { 
@@ -38,8 +40,7 @@ export class AppComponent implements  OnInit{
      
 } 
 
-  ngOnInit() {
- 
+  ngOnInit() { 
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     console.log("LoggedIn");
     console.log("Still Not Login"+this.isLoggedIn);
@@ -50,13 +51,74 @@ export class AppComponent implements  OnInit{
       const refres_Token=this.tokenStorageService.getRefreshToken();
       
       this.accessToken=access_token;     
-      this.refreshToken=refres_Token;
-   
+      this.refreshToken=refres_Token;   
       this.roles = user.roles;     
       this.userName = user.userName;
-      this.name=user.name;         
+      this.name=user.name;  
+      const userImage = sessionStorage.getItem('userImage'); 
+
+      this.base64Image = 'data:image/jpeg;base64,'+userImage;  
+      this.router.navigate(["/dashboard"]);
+     
+    }
+       
+  }
+ 
+  
+
+ 
+
+  public changePassword():void{
     
-      if(this.roles.length==1){
+    
+  }
+
+  public goToHome():void{
+    this.router.navigate(["/home"]);
+  }
+
+   public logout():void {        
+   this.tokenStorageService.signOut();
+   this.router.navigate(["/login"]);
+       
+  }
+ 
+ 
+ 
+}
+
+
+
+/*public getLoggedUserRoles(rols:any):any{
+        
+        let i=1;
+       for(let role of  rols){   
+         
+          if(i<rols.length)
+          this.currentRoles=this.currentRoles+role+",";
+          else
+          this.currentRoles=this.currentRoles+role;
+         
+          i++;
+             
+      }
+    
+      return this.currentRoles;
+  }  */
+
+
+
+ /*this.userImageService.image$.subscribe(image => {
+       console.log("User Image Fetched");
+       console.log(image);
+       
+      this.base64Image = image;
+    
+
+    });*
+
+    
+     /* if(this.roles.length==1){
       
        this.currentRoles=this.currentRoles+this.roles;
         if(this.currentRoles==="Admin"){
@@ -99,59 +161,8 @@ export class AppComponent implements  OnInit{
 
  
               }   
-      }
-     
-      //localStorage.setItem("currentRoles",this.currentRoles);    
+      }*/
+          
 
-      window.sessionStorage.setItem("currentRoles",this.currentRoles); 
-      this.router.navigate(["/dashboard"]);
-     
-    }
-       
-  }
- 
-  public getLoggedUserRoles(rols:any):any{
-        
-        let i=1;
-       for(let role of  rols){   
-         
-          if(i<rols.length)
-          this.currentRoles=this.currentRoles+role+",";
-          else
-          this.currentRoles=this.currentRoles+role;
-         
-          i++;
-             
-      }
+      //window.sessionStorage.setItem("currentRoles",this.currentRoles); 
     
-      return this.currentRoles;
-  }  
-
-  public getHeader():void{
-     this.tokenStorageService.getHeader().subscribe(
-      data => {
-        console.log("Header   List");
-        console.log(data);
-       
-      
-      }, error => console.log(error));
-  }
-
-  public changePassword():void{
-    
-    
-  }
-
-  public goToHome():void{
-    this.router.navigate(["/home"]);
-  }
-
-   public logout():void {        
-   this.tokenStorageService.signOut();
-   this.router.navigate(["/login"]);
-       
-  }
- 
- 
- 
-}

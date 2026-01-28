@@ -14,17 +14,19 @@ const httpOptions = {
 })
 export class AuthService {
 
-   //private  baseUrl = "http://localhost:8000/api/auth/";  
 
-   private baseUrl=environment.baseURL+"/auth/";
-   
+  private baseUrl=environment.apiUrl+"/auth/";   
   
   constructor(private http: HttpClient) { }  
   
-  public register(signup:SignupRequest): Observable<any> {
-   
-    
-    return this.http.post<SignupRequest>(this.baseUrl+"signup", signup);
+  
+  public register(baseUrlSaving:string,file:File): Observable<any> {
+    console.log("Register Service called");
+    const formData: FormData  = new FormData();           
+     
+     formData.append("file", file);     
+     return this.http.post(baseUrlSaving, formData) ;
+    //return this.http.post<SignupRequest>(this.baseUrl+"signup", signup);
   
      
   }

@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment.prod';
 export class MasterService {
 
  //private  baseUrl = "http://localhost:8000/api/master/";  
-   private baseUrl=environment.baseURL+"/master/";
+   private baseUrl=environment.apiUrl+"/master/";
    
 
   constructor(private http: HttpClient) { }
