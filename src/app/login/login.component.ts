@@ -5,7 +5,7 @@ import { Login } from '../models/login.model';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from '../services/tokenstorage.service';
-
+import { CustomvalidatorService } from '../services/customvalidator.service';
 import { UserImageService } from '../services/user-image.service';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
   }
   public getFormGroup(): void {
     this.loginFrm = new FormGroup({
-      userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30),CustomvalidatorService.noLeadingSpace()]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
 
     });
 
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       error => {       
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error;
        
         this.isLoginFailed = false;
         this.showAlert("error",this.errorMessage);    

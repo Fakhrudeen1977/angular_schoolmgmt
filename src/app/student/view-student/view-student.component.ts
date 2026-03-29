@@ -34,7 +34,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
   
-  displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","aadharCardNumber","email","contactAddress","Actions"];
+  displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","email","Actions"];
  
   errorMessage = "";
   public students: Student[] = [];

@@ -96,11 +96,7 @@ export class RegisterComponent  {
 
   public register(): void {
     console.log("Register");  
-    //this.signup.name=this.signupFrm.get("name").value;
-    //this.signup.userName=this.signupFrm.get("userName").value;
-    //this.signup.password=this.signupFrm.get("password").value;
-    //this.signup.email=this.signupFrm.get("email").value;
-    
+   
      this.signup.roles=this.roles;    
     
     for (let i = 0; i < this.roles.length; i++) {
@@ -141,8 +137,10 @@ export class RegisterComponent  {
           }
 
       },
-      err => {
-        this.errorMessage = err.message;
+      error => {
+        console.log("Error Finding");
+        console.log(error);
+        this.errorMessage = error.error;
         this.showAlert("error",this.errorMessage);
         
       }
