@@ -39,6 +39,8 @@ export class CustomvalidatorService {
   }
 
 
+ 
+
   static aadharValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const value = control.value;
@@ -62,5 +64,16 @@ export class CustomvalidatorService {
 
 
 }
+
+
+ static noLeadingSpace(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+  const value = control.value as string;
+  if (value && value.startsWith(' ')) {
+    return { leadingSpace: true };
+  }
+  return null;
+    }
+ } 
 
 }

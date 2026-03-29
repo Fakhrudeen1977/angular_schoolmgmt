@@ -27,14 +27,14 @@ import { DataService } from '../../services/data.service';
 })
 export class SearchStudentComponent {
  
-  displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","aadharCardNumber","email","contactAddress"];
+  displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","email"];
   
   dataSource = new MatTableDataSource<Student>();
 
   errorMessage = "";
   student: any = new Student();
  
-  isFlag: boolean = false;
+  isFlag: boolean = true;
   searchStudentForm: FormGroup;
  
   constructor(
@@ -50,7 +50,7 @@ export class SearchStudentComponent {
 
  public getFormGroup(): void {
     this.searchStudentForm = new FormGroup({
-      studentId: new FormControl("")    
+       studentId: new FormControl("", [Validators.required]),
       
     });
   }  
@@ -63,19 +63,17 @@ export class SearchStudentComponent {
     let studentId=this.searchStudentForm.get('studentId').value;
     
     this.studentService.getStudentById(studentId).subscribe(      
-      data => {
-        
-        console.log("Student ById");  
-        this.isFlag=true;
+      data => {        
+        console.log("Student ById");         
         this.student=data;               
-        console.log(this.student);  
-        
-        this.dataSource = new MatTableDataSource([this.student]); 
-       
+        console.log(this.student);          
+        this.dataSource = new MatTableDataSource([this.student]);        
+        this.isFlag=false;
 
       }, 
        error => { 
-       this.student=null;
+       this.student=null;  
+        this.isFlag=false;     
        this.errorMessage = error.error.message
        this.showAlert("error",this.errorMessage);
         
@@ -93,7 +91,8 @@ export class SearchStudentComponent {
   }
 
   public clear():void{
-    this.searchStudentForm.reset();  
+   this.dataSource.data= [];
+   this.isFlag = true;
   }
 
 }

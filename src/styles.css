@@ -17,7 +17,7 @@
 }
 
 .mat-table th{ 
-  background-color: lightskyblue;
+  
   width:700px;
   max-width: 900px;
   word-wrap: break-word;
@@ -27,14 +27,16 @@
 
 .mat-header-row,.mat-row{
   height:48px;
+  background-color:greenyellow;
+
 }
 
 .mat-row:nth-of-type(odd){
-    background-color: lightblue;
+   background-color: #f5f5f5; /* light gray */
 }
 
 .mat-row:nth-of-type(even){
-  background-color: honeydew;
+  background-color: #ffffff; /* white */
 }
 .mat-blood-card {
   display: flex;
@@ -241,8 +243,8 @@ mat-sidenav {
 }
 
 .column-studentName{
-  width:700px;
-  max-width: 900px;
+  width:900px;
+  max-width: 1000px;
   font-size: 15px;
     
 }
@@ -302,17 +304,7 @@ mat-sidenav {
   font-size: 15px;
 }
 
-.column-studentAadharNo{
-       width:690px;
-  max-width: 700px;
-  font-size: 15px;
-}
 
-.column-studentAddress{
-        width:690px;
-  max-width: 700px;
-   font-size: 15px;
-}
 
 .column-studentEmail{
        width:690px;

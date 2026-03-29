@@ -95,8 +95,8 @@ export class SaveStudentComponent {
       ]),
 
       contactAddress: new FormControl("", [Validators.required]),
-      aadharCardNumber: new FormControl("", [Validators.required,CustomvalidatorService.aadharValidator()]),
-    
+      aadharCardNumber: new FormControl("", [Validators.required]),
+     //  aadharCardNumber: new FormControl("", [Validators.required,CustomvalidatorService.aadharValidator()]),
 
       photoNumber: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required,Validators.pattern(this.emailPattern)]),
@@ -267,7 +267,7 @@ export class SaveStudentComponent {
       },error => {
         this.isFlag=true;
         console.log(error);
-        this.errorMessage = error.error.message
+        this.errorMessage = error.error.message;
         this.showAlert("error",this.errorMessage);
         
       }
