@@ -278,25 +278,6 @@ export class SaveStudentComponent {
   }
    
 
-    /* public validateDateOfBirth():boolean{
-     let isFlag=false;
-    if(this.saveStudentForm.get("dateOfBirth").value!=null){
-      
-      let selectedBirthDate = this._dataPipe.transform(this.saveStudentForm.get("dateOfBirth").value, "dd/MM/yyyy"); 
-      let currentDate=this._dataPipe.transform(new Date(), "dd/MM/yyyy");    
-      
-      alert("Date"+" "+selectedBirthDate+" "+currentDate);
-
-      if (selectedBirthDate > currentDate ){                    
-            isFlag=true;
-            this.showAlert("info","BirthDate should not be greater than Current Date'");        
-      
-      }
-      }
-      return isFlag;
-   
-   
-  }  */
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {

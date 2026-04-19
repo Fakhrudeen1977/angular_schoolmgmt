@@ -77,8 +77,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
         this.dataSource = new MatTableDataSource(this.students);     
 
       }, 
-       error => {
-       
+       error => {       
         this.errorMessage = error.message;
                 
     })
