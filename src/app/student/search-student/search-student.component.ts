@@ -93,6 +93,7 @@ export class SearchStudentComponent {
   public clear():void{
    this.dataSource.data= [];
    this.isFlag = true;
+   this.searchStudentForm.get('studentId').setValue("");
   }
 
 }

@@ -200,9 +200,12 @@ export class UpdateStudentComponent implements OnInit {
          let dob:any=new Date(this.rowData.dateOfBirth);                
           this.updateStudentForm.get("dateOfBirth").setValue(this._dataPipe.transform(dob, "yyyy-MM-dd"));                                                                     
                           
-       }   
-
+       }       
+     
+    
      this.updateStudentForm.get("gender").setValue(this.rowData.gender);
+     
+
      this.updateStudentForm.get("classId").setValue(this.rowData.classId);
      this.updateStudentForm.get("bloodId").setValue(this.rowData.bloodId);
      this.updateStudentForm.get("fatherMobileNumber").setValue(this.rowData.fatherMobileNumber);
