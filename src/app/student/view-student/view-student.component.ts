@@ -21,6 +21,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
 import { Student } from "../../models/student.model";
 import { UpdateStudentComponent } from '../../student/update-student/update-student.component';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-view-student',
   templateUrl: './view-student.component.html',
@@ -33,7 +34,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
-  
+   roles: string[] = [];
   displayedColumns: string[] = ["studentId", "studentName","fatherName","motherName", "dateOfBirth","gender", "className","religionName","bloodGroupName","fatherMobileNumber","motherMobileNumber","email","Actions"];
  
   errorMessage = "";
@@ -44,13 +45,15 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
   dialogRef: any;  
   constructor(
     private router: Router,
+    public authService: AuthService,
     private masterService: MasterService,
     private studentService: StudentService,
     private dataService: DataService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
     
-    this.getStudentList();
+   // this.getStudentList();
+ 
   }  
 
    ngOnInit() {       
@@ -58,6 +61,15 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
          this.getStudentList();      
 
         });
+
+
+        this.authService.roles$.subscribe(roles => {
+      this.roles = roles;
+      alert("Roels"+" "+this.roles);
+      
+
+    });
+
   }
 
   ngAfterViewInit() {                 
@@ -83,6 +95,20 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
     })
   }
 
+canEdit(): boolean {
+  return this.authService.hasAnyRole([
+    'Admin',
+    'Teacher'
+  ]);
+}
+
+
+canDelete(): boolean {
+  return this.authService.hasAnyRole([
+    'Admin',
+    'Principal'
+  ]);
+}
 
  
  onEdit(element: any) {

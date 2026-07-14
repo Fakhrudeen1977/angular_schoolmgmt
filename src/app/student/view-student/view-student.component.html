@@ -81,10 +81,10 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-studentActions"> Actions </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="onEdit(element)">
+      <button mat-icon-button color="primary"  *ngIf="canEdit()"  (click)="onEdit(element)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" (click)="onDelete(element)">
+      <button mat-icon-button color="warn" *ngIf="canDelete()"  (click)="onDelete(element)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>

@@ -17,8 +17,102 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Student Name
+            </mat-label>
+            <input matInput formControlName="studentName">
+            <mat-error *ngIf="studentName.touched && studentName.invalid">
+              <span *ngIf="studentName.errors.required"> Student Name is required.</span>
+            </mat-error>
+
+
+            <mat-error *ngIf="studentName?.hasError('minlength')">
+              Student Name should be minimum 2 characters.
+            </mat-error>
+
+            <mat-error *ngIf="studentName?.hasError('maxlength')">
+              Student Name should be maximm 30 characters.
+            </mat-error>
+
+            <mat-error *ngIf="studentName?.hasError('pattern')">
+              Student Name should be only letter.
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
 
     </mat-grid-list>
+
+
+     <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px">
+
+        <mat-grid-tile>
+          <mat-form-field class="form-field">
+            <mat-label> Mother Mobile Number
+            </mat-label>
+            <input matInput formControlName="motherMobileNumber">
+            <mat-error *ngIf="motherMobileNumber.touched && motherMobileNumber.invalid">
+              <span *ngIf="motherMobileNumber.errors.required">Mother Mobile Number is required.</span>
+
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('pattern')">
+              Mother Mobile Number should be only number.
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('minlength')">
+              Mother Number should be minimum 10 characters.
+            </mat-error>
+
+
+            <mat-error *ngIf="motherMobileNumber?.hasError('maxlength')">
+              Mother Mobile Number should be maximm 10 characters.
+            </mat-error>
+
+
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+
+        <mat-grid-tile>
+
+          <mat-form-field class="form-field">
+            <mat-label> Father Mobile Number
+            </mat-label>
+            <input matInput formControlName="fatherMobileNumber">
+            <mat-error *ngIf="fatherMobileNumber.touched && fatherMobileNumber.invalid">
+              <span *ngIf="fatherMobileNumber.errors.required">Father Mobile Number is required.</span>
+
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('pattern')">
+              Father Mobile Number should be only number.
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('minlength')">
+              Father Number should be minimum 10 characters.
+            </mat-error>
+
+
+            <mat-error *ngIf="fatherMobileNumber?.hasError('maxlength')">
+              Father Mobile Number should be maximm 10 characters.
+            </mat-error>
+
+
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+
 
     <mat-card-actions>
     

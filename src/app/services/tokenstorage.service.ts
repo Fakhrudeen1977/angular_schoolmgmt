@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment.prod';
 })
 export class TokenStorageService {
 
-   private baseUrl=environment.apiUrl+"/test/";  
+   private baseUrl=environment.apiUrl+"/auth/";  
 
   constructor(private http: HttpClient) {
     console.log("TokenStorageService Loading");

@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
   displayImage: SafeUrl;
   base64Image: string = "";
  
-  constructor(public router: Router, public authService: AuthService, public tokenStorage: TokenStorageService,private snackBar: MatSnackBar,private sanitizer: DomSanitizer,private userImageService: UserImageService) {
+  constructor(public router: Router, public authService: AuthService, public tokenStorageService: TokenStorageService,private snackBar: MatSnackBar,private sanitizer: DomSanitizer,private userImageService: UserImageService) {
   
     this.getFormGroup();
   }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
+    if (this.tokenStorageService.getToken()) {
       this.isLogindIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.roles = this.tokenStorageService.getUser().roles;
     }
   }
   public getFormGroup(): void {
@@ -66,15 +66,15 @@ export class LoginComponent implements OnInit {
         console.log("After Login");
         console.log(data);       
         console.log(data.token);
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data);
-        this.tokenStorage.saveRefreshToken(data.refreshToken);       
+        this.tokenStorageService.saveToken(data.token);
+        this.tokenStorageService.saveUser(data);
+        this.tokenStorageService.saveRefreshToken(data.refreshToken);       
        
         this.base64Image = 'data:image/jpeg;base64,'+data.imageData;  
         //this.isLoginFailed = false;
         this.isLogindIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.getUserName = this.tokenStorage.getUser().userName;
+        this.roles = this.tokenStorageService.getUser().roles;
+        this.getUserName = this.tokenStorageService.getUser().userName;
        
         sessionStorage.setItem('userImage', data.imageData);       
         sessionStorage.setItem("currentRoles", this.roles.toString());
@@ -83,8 +83,7 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       error => {       
-        this.errorMessage = error.error;
-       
+        this.errorMessage = error.error;       
         this.isLoginFailed = false;
         this.showAlert("error",this.errorMessage);    
         
@@ -104,6 +103,8 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["/register"]);
   }
 
+
+ 
 
     public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {

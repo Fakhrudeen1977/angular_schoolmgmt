@@ -250,6 +250,7 @@ export class SaveStudentComponent {
 
                                                                  
           
+        
     
      
        this.studentService.saveStudent(this.baseUrl,this.selectedFile).subscribe(

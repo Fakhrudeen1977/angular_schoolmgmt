@@ -50,13 +50,45 @@ export class SearchStudentComponent {
 
  public getFormGroup(): void {
     this.searchStudentForm = new FormGroup({
-       studentId: new FormControl("", [Validators.required]),
+       studentId: new FormControl(""),
+       studentName: new FormControl("", [
+      
+        Validators.minLength(2),
+        Validators.maxLength(30),
+        Validators.pattern("^[a-zA-Z s.]*$")
+      ]),
+
+       fatherMobileNumber: new FormControl("", [
+       
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$")
+      ]),
+      
+        motherMobileNumber: new FormControl("", [
+       
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$")
+      ]),
       
     });
   }  
 
    public get studentId(){
      return this.searchStudentForm.get('studentId');
+  }
+
+   public get studentName() {
+    return this.searchStudentForm.get("studentName");
+  }
+
+   public get fatherMobileNumber() {
+    return this.searchStudentForm.get("fatherMobileNumber");
+  }
+
+  public get motherMobileNumber() {
+    return this.searchStudentForm.get("motherMobileNumber");
   }
 
   public getStudentById(): void {       
