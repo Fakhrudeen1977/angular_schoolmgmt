@@ -17,7 +17,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class LoginComponent implements OnInit {
 
   loginFrm: FormGroup;
-  isLogindIn = false;
+  isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.tokenStorageService.getToken()) {
-      this.isLogindIn = true;
+      this.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
     }
   }
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
        
         this.base64Image = 'data:image/jpeg;base64,'+data.imageData;  
         //this.isLoginFailed = false;
-        this.isLogindIn = true;
+        this.isLoggedIn = true;
         this.roles = this.tokenStorageService.getUser().roles;
         this.getUserName = this.tokenStorageService.getUser().userName;
        
@@ -104,7 +104,6 @@ export class LoginComponent implements OnInit {
   }
 
 
- 
 
     public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {

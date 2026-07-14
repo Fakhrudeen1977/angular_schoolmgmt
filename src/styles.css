@@ -63,6 +63,19 @@
   
 }
 
+
+.active-link {
+    background: #e3f2fd;
+    font-weight: bold;
+}
+
+.profile-image{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .student-radio-button{
  
     display: table-cell;
