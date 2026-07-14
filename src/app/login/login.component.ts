@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   displayImage: SafeUrl;
   base64Image: string = "";
  
-  constructor(public router: Router, public authService: AuthService, public tokenStorageService: TokenStorageService,private snackBar: MatSnackBar,private sanitizer: DomSanitizer,private userImageService: UserImageService) {
+  constructor(private router: Router, private authService: AuthService, private tokenStorageService: TokenStorageService,private snackBar: MatSnackBar,private sanitizer: DomSanitizer,private userImageService: UserImageService) {
   
     this.getFormGroup();
   }
@@ -71,20 +71,13 @@ export class LoginComponent implements OnInit {
         this.tokenStorageService.saveRefreshToken(data.refreshToken);       
        
         this.base64Image = 'data:image/jpeg;base64,'+data.imageData;  
-        //this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorageService.getUser().roles;
-        this.getUserName = this.tokenStorageService.getUser().userName;
-       
-        sessionStorage.setItem('userImage', data.imageData);       
-        sessionStorage.setItem("currentRoles", this.roles.toString());
-        sessionStorage.setItem("currentUserName",  this.getUserName);
-       
+        sessionStorage.setItem('userImage', data.imageData);     
+              
         this.reloadPage();
       },
       error => {       
         this.errorMessage = error.error;       
-        this.isLoginFailed = false;
+        this.isLoginFailed = false;-
         this.showAlert("error",this.errorMessage);    
         
 

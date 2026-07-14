@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Login } from '../models/login.model';
 import { environment } from '../../environments/environment.prod';
+import { ActivatedRoute, Router } from '@angular/router';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -16,7 +18,7 @@ export class AuthService {
 
   private baseUrl = environment.apiUrl + "/auth/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient ,private router: Router) { }
 
   public register(baseUrlSaving: string, file: File): Observable<any> {
     console.log("Auth Service Register called");
@@ -27,6 +29,16 @@ export class AuthService {
   }
 
  
+ public logout(): void {
+  
+    this.router.navigate(['/login']);
+  }
+
+   public changePassword(request: any): Observable<any> {
+    return this.http.put('/api/auth/change-password', request);
+  }
+
+
   public login(login: Login): Observable<any> {
 
     return this.http.post<Login>(this.baseUrl + "login", login);

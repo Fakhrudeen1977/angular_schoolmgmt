@@ -43,8 +43,5 @@ export class TokenStorageService {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
-   public getHeader(): Observable<any> {
-    return this.http.get<void>(this.baseUrl+"listHeaders");
-     
-  }
+  
 }

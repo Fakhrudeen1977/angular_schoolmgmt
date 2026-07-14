@@ -61,12 +61,7 @@ export class AppComponent implements  OnInit{
     }
        
   }
-  
-
-  public changePassword():void{
-    
-    
-  }
+   
 
   public goToHome():void{
     this.router.navigate(["/home"]);
@@ -75,8 +70,8 @@ export class AppComponent implements  OnInit{
    public logout():void {        
    this.tokenStorageService.signOut();
    this.isLoggedIn=false;
+   this.authService.logout();
  
-   this.router.navigate(["/login"]);
      
        
   }
