@@ -1,0 +1,45 @@
+
+<mat-card class="mat-login-card" color="accent"> 
+  
+  <mat-card-header>
+    <mat-card-title class=" mat-login-title">Role View</mat-card-title>
+  </mat-card-header>  
+     
+ <mat-card-content >
+    <form [formGroup]="roleViewpFrm">
+
+      <mat-form-field class="form-field">
+                <mat-label> Role Id
+        </mat-label>
+        <input matInput formControlName="roleId" type="text">
+      </mat-form-field>
+   
+      <mat-form-field class="form-field">
+        <mat-label> RoleName
+        </mat-label>
+        <input matInput formControlName="roleName" type="text">
+        <mat-error *ngIf="roleViewpFrm?.hasError('required')">
+              Role Name is required.
+        </mat-error>  
+         
+
+         
+
+      </mat-form-field>           
+    
+      <mat-card-actions>
+      
+       <button type="submit" mat-raised-button color="primary"[disabled]="!roleViewpFrm.valid" (click)="saveRole()" >Save</button>
+       
+        <button mat-button mat-raised-button color="accent" (click)="closeDialog()">Close</button>
+      </mat-card-actions>
+    </form>
+
+ </mat-card-content>
+ 
+</mat-card>
+
+
+
+
+

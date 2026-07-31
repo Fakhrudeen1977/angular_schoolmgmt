@@ -72,12 +72,13 @@ export class LoginComponent implements OnInit {
        
         this.base64Image = 'data:image/jpeg;base64,'+data.imageData;  
         sessionStorage.setItem('userImage', data.imageData);     
-              
-        this.reloadPage();
+
+        this.router.navigate(["/dashboard"]);
+            
+       
       },
       error => {       
-        this.errorMessage = error.error;       
-        this.isLoginFailed = false;-
+        this.errorMessage = error.error;              
         this.showAlert("error",this.errorMessage);    
         
 
@@ -86,10 +87,6 @@ export class LoginComponent implements OnInit {
  
   }
 
-  reloadPage() {
-    window.location.reload();
-  }
- 
 
   public signUp(): void {
     event.preventDefault();

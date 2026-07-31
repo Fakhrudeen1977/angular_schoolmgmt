@@ -51,8 +51,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
     private dataService: DataService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
-    
-   // this.getStudentList();
+     
  
   }  
 
@@ -65,7 +64,7 @@ export class ViewStudentComponent implements  OnInit ,  AfterViewInit  {
 
         this.authService.roles$.subscribe(roles => {
       this.roles = roles;
-      alert("Roels"+" "+this.roles);
+    
       
 
     });

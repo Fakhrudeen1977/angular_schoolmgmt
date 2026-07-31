@@ -311,9 +311,7 @@ export class UpdateStudentComponent implements OnInit {
     
 
   }    
-
-
-  
+ 
 
   
   public saveStudent(): void {

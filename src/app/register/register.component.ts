@@ -5,33 +5,33 @@ import { SignupRequest } from '../models/signup.model';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from '../models/role.model';
-import { MasterService } from '../services/master.service';
 
+import { RoleService } from "../services/role.service";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent  {
+export class RegisterComponent implements OnInit {
 
   signupFrm: FormGroup;
   signup: SignupRequest = new SignupRequest();
-  roles: string[] = [];
-  splitedRoleNames: string[]=[];
-  assignedRoles: string[] = [];
-  selectedRoles: Role[] = [];
+  roles: any[] = [];
+
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   roleList: Role[] = [];
-  selectedFiles: File;
   selectedFile: File;
-   baseUrl:string;
-  constructor( public router: Router, public authService: AuthService,public masterService:MasterService ,private snackBar: MatSnackBar) {
+  baseUrl: string;
+  constructor(public router: Router, public authService: AuthService, public roleService: RoleService, private snackBar: MatSnackBar) {
+
+  }
+
+  ngOnInit(): void {
     this.getFormGroup();
     this.getRoleList();
-   
   }
 
   public getFormGroup(): void {
@@ -39,7 +39,7 @@ export class RegisterComponent  {
       name: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),      
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
       role: new FormControl('', [Validators.required]),
       imageFileName: new FormControl("", [Validators.required])
 
@@ -67,103 +67,26 @@ export class RegisterComponent  {
     return this.signupFrm.get('role');
   }
 
-   public get imageFileName() {
+  public get imageFileName() {
     return this.signupFrm.get("imageFileName");
   }
 
 
   public getRoleList(): void {
-    this.masterService.getRoleList().subscribe(
+    this.roleService.getRoleList().subscribe(
       data => {
         this.roleList = data;
       },
     )
   }
 
-  public getRoles(event:any){  
-    let roleName="";
-    this.roles=[];
-    if(event.source.selected) {   
-      let roleId=event.value;  
-      roleName=event.source.triggerValue;  
-      this.roles.push(roleName);    
-        
-           
-    }             
-    
 
-  } 
+  public getRoles(event: any): void {
 
-  public register(): void {
-    console.log("Register");  
-   
-     this.signup.roles=this.roles;    
-    
-    for (let i = 0; i < this.roles.length; i++) {
-        
-        const resultString: string = this.roles.toString();
-        this.splitedRoleNames= resultString.split(",");              
-
-    }     
-      
-    for (let i = 0; i <this.splitedRoleNames.length; i++) {
-     
-         this.assignedRoles.push(this.splitedRoleNames[i].toString().trim());      
-
-    }
-
-  
-   this.signup.roles=this.assignedRoles;  
-  
-
-  this.baseUrl = "http://localhost:8000/schoolmanagement/auth/userSignup?name="+this.signupFrm.get("name").value+
-                                                                  "&userName="+this.signupFrm.get("userName").value+
-                                                                  "&password="+this.signupFrm.get("password").value+                                                               
-                                                                  "&email="+this.signupFrm.get("email").value+
-                                                                  //"&role="+this.signup.roles;
-                                                                   "&role="+this.roles;
-                                                     
- 
-
-  
- this.authService.register(this.baseUrl,this.selectedFile).subscribe(
-      data => {
-          console.log("Registration Done");          
-
-          if(data!=null){
-             this.showAlert("success","Registration Saved Successfully");  
-             this.router.navigate(["/login"]);           
-         
-          }
-
-      },
-      error => {
-        console.log("Error Finding");
-        console.log(error);
-        this.errorMessage = error.error;
-        this.showAlert("error",this.errorMessage);
-        
-      }
-    );
-    
-     
 
   }
 
-  public showAlert(message: string, action: string = 'Dismiss'){
-     this.snackBar.open(message, action, {
-        duration:15000, // Optional duration in milliseconds
-        horizontalPosition: 'center', // Optional horizontal position
-        verticalPosition: 'top', // Optional vertical position
-      });
-   }
-
-  public login() {
-    event.preventDefault();
-    this.router.navigate(["/login"]);
-  } 
-
-   selectFile(event: any) {
+  selectFile(event: any) {
     const file = event.target.files.item(0);
     //alert("File chosent"+" "+file);
 
@@ -174,12 +97,73 @@ export class RegisterComponent  {
         this.signupFrm.get("imageFileName").setValue("");
       } else {
         this.selectedFile = file;
-       
+
       }
     } else {
       alert("invalid format!");
     }
   }
+
+
+
+  public saveUserWithRoles(): void {
+
+    if (this.signupFrm.invalid) {
+      this.signupFrm.markAllAsTouched();
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", this.signupFrm.value.name);
+    formData.append("userName", this.signupFrm.value.userName);
+    formData.append("password", this.signupFrm.value.password);
+    formData.append("email", this.signupFrm.value.email);
+
+    this.roles = this.signupFrm.get('role').value;
+    this.roles.forEach((roleId: number) => {
+      formData.append('role', roleId.toString());
+    });
+    formData.append("file", this.selectedFile);
+
+    this.authService.saveUserWithRoles(formData).subscribe(
+      
+      data => {
+          if (data != null) {
+          console.log("UserRegistration Saved Successfully");
+          this.showAlert("success", "UserRegistration Saved Successfully");
+          this.router.navigate(["/login"]);
+
+        }
+
+      },
+      error => {
+        console.log("Error Finding");
+        console.log(error);
+        this.errorMessage = error.error;
+        this.showAlert("error", this.errorMessage);
+
+      }
+    );
+
+
+
+  }
+
+  public showAlert(message: string, action: string = 'Dismiss') {
+    this.snackBar.open(message, action, {
+      duration: 5000, // Optional duration in milliseconds
+      horizontalPosition: 'center', // Optional horizontal position
+      verticalPosition: 'top', // Optional vertical position
+    });
+  }
+
+  public login() {
+    event.preventDefault();
+    this.router.navigate(["/login"]);
+  }
+
+
+
 
 
 

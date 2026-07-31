@@ -37,8 +37,7 @@ export class ViewClassComponent implements  OnInit   {
   paginator: MatPaginator;
   displayedColumns: string[] = ["classId", "className","Actions"]; 
    
-  errorMessage = "";
-  
+  errorMessage = "";  
   isLoading = false;
   request = {};
   isFlag: boolean = false;
@@ -56,35 +55,17 @@ export class ViewClassComponent implements  OnInit   {
     private dataService: DataService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
-  
-     this.getClassDetailList();  
+       
   }
 
    ngOnInit() {       
         this.dataService.refreshNeeded$.subscribe(() => {
-         // this.getClassDetailListPagination({ pageNo: "0", perPage: "48" }); 
-
           this.getClassDetailList();             
 
         });
   }
       
-
-  /*public getClassDetailListPagination(request): void {
-    this.isLoading = true;
-    this.masterService.getClassDetailListPage(request).subscribe(
-      data => {
-        console.log("ClassDetails  List");
-        console.log(data);
-        this.classDetailList=data['content'];
-         this.totalElements = data['totalElements'];
-         this.isLoading = false;
-         this.dataSource = new MatTableDataSource(this.classDetailList);
-       
-      }, error => console.log(error));
-  }*/
-
-
+  
   public getClassDetailList(): void {
   
     this.isLoading = true;
@@ -104,8 +85,7 @@ export class ViewClassComponent implements  OnInit   {
 nextPage(event: PageEvent) {  
    this.request['pageNo'] = event.pageIndex.toString();
    this.request['perPage'] = event.pageSize.toString();
- 
-   //this.getClassDetailListPagination(this.request);   
+    
   }
   
  

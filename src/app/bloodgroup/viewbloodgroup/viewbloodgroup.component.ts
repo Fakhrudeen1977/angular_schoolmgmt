@@ -94,13 +94,13 @@ export class ViewbloodgroupComponent implements AfterViewInit {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result === true) {
-      this.masterService.deleteByBloodGrpId(element.bloodId).subscribe(
+      this.masterService.deleteByBloodGroupId(element.bloodId).subscribe(
       data => {
         console.log(data);
         if (data != null) {
           this.showAlert(
             "success",
-            "Blood Information has been deleted successfully"
+            "BloodGroup has been deleted successfully"
           );
         }
         this.getBloodGroupList();

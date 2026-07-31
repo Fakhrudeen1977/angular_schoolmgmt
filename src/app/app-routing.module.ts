@@ -12,29 +12,92 @@ import { SearchStudentComponent } from './student/search-student/search-student.
 import { SaveClassComponent } from './classinfo/save-class/save-class.component';
 import { ViewClassComponent } from './classinfo/view-class/view-class.component';
 import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+
+import { RoleAddComponent } from './role/role-add/role-add.component';
+import { RoleListComponent } from './role/role-list/role-list.component';
+
 
 const routes: Routes = [
-   
-   { path: 'login',  component: LoginComponent },
-   { path: 'dashboard',  component: DashboardComponent },
-  
-   { path: 'register',  component:RegisterComponent },
 
-   { path: 'saveStudent',  component:SaveStudentComponent },
-   { path: 'updateStudent',  component:UpdateStudentComponent },
-   { path: 'viewStudent',  component:ViewStudentComponent },
-   { path: 'searchStudent',  component:SearchStudentComponent }, 
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
-    { path: 'saveClass',  component: SaveClassComponent },
-    { path: 'viewClass',  component: ViewClassComponent },
-    { path: 'updateClass',  component: UpdateClassComponent },
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'saveStudent',
+        component: SaveStudentComponent
+      },
+      {
+        path: 'searchStudent',
+        component: SearchStudentComponent
+      },
+      {
+        path: 'viewStudent',
+        component: ViewStudentComponent
+      },
 
-   { path: 'savebloodgroup',  component: SavebloodgroupComponent },
-   { path: 'viewbloodgroup',  component: ViewbloodgroupComponent }, 
+      {
+        path: 'saveRole',
+        component: RoleAddComponent
+      },
 
-   { path: '', component: LoginComponent },   
-   { path: '', redirectTo: '/login ', pathMatch: 'full' },
-   //{ path: '**', component: PagenotfoundComponent },  
+      {
+        path: 'viewRolesList',
+        component: RoleListComponent
+      },
+
+      {
+        path: 'saveClass',
+        component: SaveClassComponent
+      },
+
+      {
+        path: 'viewClass',
+        component: ViewClassComponent
+      },
+
+      {
+        path: 'viewClass',
+        component: ViewClassComponent
+      },
+
+      {
+        path: 'updateClass',
+        component: UpdateClassComponent
+      },
+
+      { 
+        path: 'savebloodgroup', 
+      component: SavebloodgroupComponent 
+     },
+
+      { 
+        path: 'viewbloodgroup', 
+        component: ViewbloodgroupComponent 
+      },
+
+    ]
+  },
+
+
+
+
+
+
+
+
+  { path: '', redirectTo: '/login ', pathMatch: 'full' },
+
+  //{ path: '**', component: PagenotfoundComponent },  
 
 ];
 
@@ -44,6 +107,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
-  
-  
- }
+
+
+}

@@ -57,6 +57,11 @@ import { ViewClassComponent } from './classinfo/view-class/view-class.component'
 import { UpdateClassComponent } from './classinfo/update-class/update-class.component';
 import { SearchStudentComponent } from './student/search-student/search-student.component';
 import { SaveStudentComponent } from './student/save-student/save-student.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { RoleAddComponent } from './role/role-add/role-add.component';
+import { RoleListComponent } from './role/role-list/role-list.component';
+import { RoleViewComponent } from './role/role-view/role-view.component';
+
 
 @NgModule({
   declarations: [
@@ -77,10 +82,15 @@ import { SaveStudentComponent } from './student/save-student/save-student.compon
     UpdateClassComponent,
     SearchStudentComponent,
     SaveStudentComponent,
+    MainLayoutComponent,
+    
+    RoleAddComponent,
+    RoleListComponent,
+    RoleViewComponent,
    
 
   ],
-  entryComponents: [EditbloodgroupComponent,ConfirmDialogComponent,UpdateStudentComponent],
+  entryComponents: [EditbloodgroupComponent,ConfirmDialogComponent,UpdateStudentComponent,RoleViewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

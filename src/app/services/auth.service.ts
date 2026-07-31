@@ -16,16 +16,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
-  private baseUrl = environment.apiUrl + "/auth/";
+  private apiUrl = environment.apiUrl + "/auth/";
 
   constructor(private http: HttpClient ,private router: Router) { }
 
-  public register(baseUrlSaving: string, file: File): Observable<any> {
-    console.log("Auth Service Register called");
-    const formData: FormData = new FormData();
-    formData.append("file", file);
-    return this.http.post(baseUrlSaving, formData);
-
+  public saveUserWithRoles(formData:any): Observable<any> {  
+    return this.http.post(this.apiUrl+ "saveUserWithRoles", formData);
   }
 
  
@@ -41,11 +37,11 @@ export class AuthService {
 
   public login(login: Login): Observable<any> {
 
-    return this.http.post<Login>(this.baseUrl + "login", login);
+    return this.http.post<Login>(this.apiUrl + "login", login);
   }
 
   public refreshToken(token: string) {
-    return this.http.post(this.baseUrl + 'refreshtoken', {
+    return this.http.post(this.apiUrl + 'refreshtoken', {
       refreshToken: token
     }, httpOptions);
   }

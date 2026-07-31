@@ -28,8 +28,8 @@ export class EditbloodgroupComponent implements OnInit {
    {
       this.rowData=data; 
      this.getFormGroup();    
-          
-     //this.editBloodGrpFrm.get("bloodId").setValue(this.rowData.bloodId);
+     
+     
      this.editBloodGrpFrm.get("bloodGroupName").setValue(this.rowData.bloodGroupName);
 
   } 

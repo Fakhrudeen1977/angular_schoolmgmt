@@ -7,6 +7,8 @@ import { ClassDetails } from '../models/classdetail.model';
 import { BloodGroup } from '../models/bloodgroup.model';
 import { Religion } from "../models/religion.model";
 import { environment } from '../../environments/environment.prod';
+import { Role } from '../models/role.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,8 +37,8 @@ export class MasterService {
     
   } 
  
-  public deleteByBloodGrpId(bloodGroupId: number): Observable<any> {    
-     return this.http.delete(`${this.baseUrl}deleteBloodGroupId/${bloodGroupId}`, { responseType: 'text' });    
+  public deleteByBloodGroupId(bloodGroupId: number): Observable<any> {    
+     return this.http.delete(`${this.baseUrl}deleteByBloodGroupId/${bloodGroupId}`, { responseType: 'text' });    
   }
 
  public saveClassDetail(classDetails:ClassDetails): Observable<any> {
@@ -86,11 +88,6 @@ export class MasterService {
   }
  
  
-
-   public getRoleList(): Observable<any> {   
-     return this.http.get(`${this.baseUrl}` + 'getRoleList');
-    
-  }
 
 
    public getUserList(): Observable<any> {   
