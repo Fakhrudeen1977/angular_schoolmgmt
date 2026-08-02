@@ -44,7 +44,10 @@ export class ViewClassComponent implements  OnInit   {
   pageSizes = [5,10,25,100];
   dialogRef: any;
   totalElements: number = 0;
-  
+  pageSize = 5;
+  pageIndex = 0;
+
+
   classDetails: ClassDetails = new ClassDetails();  
   classDetailList:ClassDetails[]=[];
   
@@ -60,16 +63,16 @@ export class ViewClassComponent implements  OnInit   {
 
    ngOnInit() {       
         this.dataService.refreshNeeded$.subscribe(() => {
-          this.getClassDetailList();             
+          this.getClassDetailListPagination();             
 
         });
   }
       
   
-  public getClassDetailList(): void {
+  public getClassDetailListPagination(): void {
   
     this.isLoading = true;
-    this.masterService.getClassDetailListPage({ pageNo: "0", perPage: "48" }).subscribe(
+    this.masterService.getClassDetailListPagination(this.pageIndex,this.pageSize ).subscribe(
       data => {
         console.log("ClassDetails  List");
         console.log(data);
@@ -82,10 +85,11 @@ export class ViewClassComponent implements  OnInit   {
   }
  
  
-nextPage(event: PageEvent) {  
-   this.request['pageNo'] = event.pageIndex.toString();
-   this.request['perPage'] = event.pageSize.toString();
-    
+pageChanged(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    this.getClassDetailListPagination();
   }
   
  
@@ -117,7 +121,7 @@ nextPage(event: PageEvent) {
             "Class Detail Information has been deleted successfully"
           );
         }
-         this.getClassDetailList();
+         this.getClassDetailListPagination();
       },
       error => {
         this.errorMessage = error.message;

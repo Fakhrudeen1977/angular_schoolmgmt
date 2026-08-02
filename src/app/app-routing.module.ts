@@ -65,10 +65,7 @@ const routes: Routes = [
         component: ViewClassComponent
       },
 
-      {
-        path: 'viewClass',
-        component: ViewClassComponent
-      },
+     
 
       {
         path: 'updateClass',

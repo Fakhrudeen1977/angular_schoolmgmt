@@ -15,15 +15,12 @@ export class DataService {
   private refreshNeeded=new BehaviorSubject<boolean>(false);
   refreshNeeded$=this.refreshNeeded.asObservable();
 
-  triggerRefresh(){
+  triggerRefresh(){    
     this.refreshNeeded.next(true);
   }
 
 
-   getJsonData():Observable<any> {
-      return this.http.get<any>('assets/test.json');   
-    }
-
+   
 
 
    

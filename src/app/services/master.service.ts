@@ -45,24 +45,19 @@ export class MasterService {
     return this.http.post<ClassDetails>(this.baseUrl+"saveClassDetail", classDetails);
      
   }
-   public getClassDetailList(): Observable<any> {
-     const params = new HttpParams()
-    .set('pageNo', "0")
-    .set('perPage', "48");
-   return this.http.get<ClassDetails>(this.baseUrl+"getClassDetailList",{ params});  
-    
 
-  }
+   public getClassDetailList(): Observable<any> {    
+    return this.http.get<BloodGroup>(this.baseUrl+"getClassDetailList");     
+  } 
+ 
 
+   public getClassDetailListPagination(pageIndex: number, pageSize: number): Observable<any> {
+  
+     let params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
 
-   public getClassDetailListPage(request:any): Observable<any> {
-    const endpoint = this.baseUrl+"getClassDetailList";
-     
-     const params = new HttpParams()
-    .set('pageNo', request.pageNo)
-    .set('perPage', request.perPage);
-    
-    return this.http.get<ClassDetails>(endpoint, { params });     
+    return this.http.get<any>(this.baseUrl+"getClassDetailListPagination", { params });
   }
 
 
@@ -80,7 +75,6 @@ export class MasterService {
   public deleteByClassId(classId: number): Observable<any> {    
      return this.http.delete(`${this.baseUrl}deleteByClassId/${classId}`, { responseType: 'text' });    
   }
-
 
    
  public deleteByUserId(userId: number): Observable<any> {    

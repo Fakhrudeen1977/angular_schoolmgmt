@@ -39,8 +39,6 @@ export class ViewbloodgroupComponent implements AfterViewInit {
   bloodGroup: BloodGroup = new BloodGroup();
   bloodGroupList: BloodGroup[] = [];
   isFlag: boolean = false;
-
-  pageSizes = [10];
   dialogRef: any;
   
   public updateBloodGrpForm: FormGroup;
@@ -62,9 +60,8 @@ export class ViewbloodgroupComponent implements AfterViewInit {
         this.bloodGroupList = data;
         
         this.dataSource = new MatTableDataSource(this.bloodGroupList);
-            
-
-        console.log(this.bloodGroupList);
+        
+        
       },
       error => console.log(error)
     );
@@ -75,7 +72,7 @@ export class ViewbloodgroupComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
- // 
+  
  onEdit(element: any) {
    
    console.log('Edit clicked:', element.bloodId);

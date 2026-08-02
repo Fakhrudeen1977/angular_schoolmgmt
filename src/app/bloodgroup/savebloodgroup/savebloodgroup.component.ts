@@ -20,27 +20,20 @@ export class SavebloodgroupComponent implements OnInit {
   isSubmitted:boolean=false;
  
   constructor(private router: Router, private masterService: MasterService,private snackBar: MatSnackBar) {
-    this.getFormGroup();
+    
+  }
+   ngOnInit() {
+        this.getFormGroup();
 
   }
- 
 
   public getFormGroup(): void {
     this.saveBloodGrpFrm = new FormGroup({
       bloodGroupName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(3),CustomvalidatorService.validBloodGroup()]),
-
-      
-
      
-    });
-
-    
+    });    
 
   }  
-
-   ngOnInit() {
-        
-  }
 
   public get bloodGroupName():any {
     return this.saveBloodGrpFrm.get('bloodGroupName');

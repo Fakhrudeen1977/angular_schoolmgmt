@@ -28,9 +28,7 @@ export class MainLayoutComponent implements OnInit {
   refreshToken:any;  
   userRoles:string;
   base64Image: string = "";  
-  currentDateTime: Date = new Date();
-
-   
+  currentDateTime: Date = new Date();  
    
   
   constructor(private authService: AuthService,private tokenStorageService: TokenStorageService,public router: Router,private _dialog:MatDialog,private userImageService: UserImageService) {
@@ -80,6 +78,10 @@ export class MainLayoutComponent implements OnInit {
  
      
        
+  }
+
+  public changePassword():void{
+    console.log("Change Password");
   }
  
 

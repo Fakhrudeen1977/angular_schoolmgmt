@@ -191,7 +191,7 @@ export class SaveStudentComponent {
     this.masterService.getClassDetailList().subscribe(
       data => {
         console.log(data);
-        this.classDetil = data['content'];
+        this.classDetil = data;
         
       },
       error => console.log(error)

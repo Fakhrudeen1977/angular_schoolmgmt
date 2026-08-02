@@ -57,9 +57,9 @@ export class UpdateClassComponent  {
   }
   public saveClass(): void {     
     this.isSubmitted=true;   
-    this.classDetails.classId = this.updateClassFrm.get("classId").value;
-    this.classDetails.className=this.updateClassFrm.get("className").value;
-   
+  
+    this.classDetails = this.updateClassFrm.getRawValue();
+
    this.masterService.saveClassDetail(this.classDetails).subscribe(
       data => {
         console.log("Update Class Detail");
@@ -89,7 +89,7 @@ export class UpdateClassComponent  {
 
    public showAlert(message: string, action: string = 'Dismiss'){
      this.snackBar.open(message, action, {
-        duration:4000, // Optional duration in milliseconds
+        duration:3000, // Optional duration in milliseconds
         horizontalPosition: 'center', // Optional horizontal position
         verticalPosition: 'top', // Optional vertical position
       });

@@ -399,4 +399,19 @@ mat-sidenav {
 }
 
 
+.small-btn {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.small-btn .mat-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  margin-right: 4px;
+}
+
 

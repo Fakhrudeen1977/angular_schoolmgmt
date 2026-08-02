@@ -19,13 +19,13 @@ import { EditbloodgroupComponent } from '../../bloodgroup/editbloodgroup/editblo
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Role } from '../../models/role.model';
 import { RoleViewComponent } from '../../role/role-view/role-view.component';
-
+import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css']
 })
-export class RoleListComponent implements AfterViewInit {
+export class RoleListComponent implements OnInit,AfterViewInit {
 
   @ViewChild(MatSort, { static: true })
   sort: MatSort;
@@ -47,12 +47,21 @@ export class RoleListComponent implements AfterViewInit {
 
   constructor(
     private router: Router,
-    private roleService: RoleService,
+    private roleService: RoleService,private dataService: DataService,
     public snackBar: MatSnackBar,public dialog: MatDialog
   ) {
    
     this.getRoleList();
   }
+
+
+   ngOnInit() {       
+        this.dataService.refreshNeeded$.subscribe(() => {
+          this.getRoleList();             
+
+        });
+  }
+      
   
   public getRoleList(): void {
     this.roleService.getRoleList().subscribe(
@@ -73,7 +82,7 @@ export class RoleListComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
- // 
+ 
  onEdit(element: any) {
    
    console.log('Edit clicked:', element.roleId);

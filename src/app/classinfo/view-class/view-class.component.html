@@ -4,13 +4,19 @@
   
   <div >
      
-     <button type="button" class="mat-class-button"  mat-raised-button color="accent" (click)="addClassDetail()" >Add New Class</button>
-
+    <button
+  mat-raised-button
+  color="accent"
+  class="small-btn"
+  (click)="addClassDetail()">
+  <mat-icon>add</mat-icon>
+  Add Class
+</button>
     </div>
 
   
 <mat-paginator color="accent" [pageSizeOptions]="pageSizes" [pageSize]="10" [length]="totalElements"
-        (page)="nextPage($event)" > </mat-paginator>
+        (page)="pageChanged($event)" > </mat-paginator>
   <table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="classId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-small-class">Class Id</th>

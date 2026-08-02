@@ -20,7 +20,7 @@ export class RoleService {
   }
 
    public getRoleList(): Observable<any> {   
-     return this.http.get(`${this.baseUrl}` + 'getRoleList');
+     return this.http.get(`${this.baseUrl}`+'getRoleList');
     
   }
 
