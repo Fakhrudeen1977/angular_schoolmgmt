@@ -88,8 +88,7 @@ export class RegisterComponent implements OnInit {
 
   selectFile(event: any) {
     const file = event.target.files.item(0);
-    //alert("File chosent"+" "+file);
-
+  
     if (file.type.match("image.*")) {
       var size = event.target.files[0].size;
       if (size > 1000000) {

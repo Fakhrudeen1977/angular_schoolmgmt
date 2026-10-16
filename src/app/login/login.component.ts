@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit {
   public get password() {
     return this.loginFrm.get('password');
   }
-
-
+ 
   public signIn() {
      this.isSubmitted=true;  
      this.login = this.loginFrm.value;

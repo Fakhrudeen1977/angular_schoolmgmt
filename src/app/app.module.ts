@@ -61,7 +61,10 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { RoleAddComponent } from './role/role-add/role-add.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { RoleViewComponent } from './role/role-view/role-view.component';
+import { TeacherModule } from './teacher/teacher.module';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -136,6 +139,7 @@ import { RoleViewComponent } from './role/role-view/role-view.component';
     MatDatepickerModule,
     MatNativeDateModule,
     //MatNativeDateModule,   
+     TeacherModule  
 
 
   ],
@@ -144,6 +148,12 @@ import { RoleViewComponent } from './role/role-view/role-view.component';
  
   { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // Optional: sets default locale
+
+   {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
 
   {provide: DateAdapter,useClass:NativeDateAdapter},
   MatDatepickerModule,MatDialog,
